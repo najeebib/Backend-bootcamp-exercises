@@ -175,6 +175,7 @@ class BealeCipher:
             raise StopIteration
         
 cipher_iterator = BealeCipher(text, keys)
-
+arr = []
 for letter in cipher_iterator:
-    print(letter)
+    arr.append(letter)
+print(arr)
