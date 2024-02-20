@@ -1,11 +1,15 @@
 import random
 
-materials = ["Wood","Steel","Glass","Plastic","Aluminum","Copper","Paper","Water","Rubber","Leather","Concrete","Ceramics","Stone","Gold","Silver","Titanium","Oil","Bronze","Uranium","Vibranium"]
+materials = []
+for i in range(20):
+    material = f"material-{i}"
+    materials.append(material)
+alient_delegations = []
 
-alient_delegations = [{"name": "Tau Empire","Needed Materials":["Oil","Wood","Alumium"],"Number of sugestions": 6},
-                      {"name": "Eldar","Needed Materials":["Concret","Silver","Leather"],"Number of sugestions": 3},
-                      {"name": "Orc Hord","Needed Materials":["Uranium","Steel","Oil"],"Number of sugestions": 5},
-                      {"name": "Space Dwarves","Needed Materials":["Glass","Wood","Paper"],"Number of sugestions": 8}]
+for i in range(4):
+    name = f"alien delegation-{i}"
+    suggestions = random.randint(3,9)
+    alient_delegations.append({"name": name,"Needed Materials":random.choices(materials, k=3),"Number of sugestions": suggestions})
 
 delegations_num = len(alient_delegations)
 success_count = 0
@@ -14,7 +18,7 @@ for i in range(delegations_num):
     delegation = alient_delegations[i]
     is_there_material = False
     while suggestion < delegation["Number of sugestions"]:
-        random_material = materials[random.randint(0,len(materials))]
+        random_material = materials[random.randint(0,len(materials)-1)]
         suggestion += 1
         if random_material in delegation["Needed Materials"]:
             is_there_material = True
