@@ -29,20 +29,18 @@ def joinFight(player_pokemons, player_pokemon_index, player_pokemon_alive):
     print(f"{player_pokemon['name']} has joined the fight")
     return player_pokemon
 
-player1_pokemons = [
-    {"name": "Charizard", "level": 35, "strength": 8, "speed": 4, "type": "fire", "life": 120},
-    {"name": "Blastoise", "level": 40, "strength": 7, "speed": 3, "type": "water", "life": 120},
-    {"name": "Venusaur", "level": 38, "strength": 6, "speed": 2, "type": "earth", "life": 120},
-    {"name": "Pidgeot", "level": 32, "strength": 5, "speed": 5, "type": "wind", "life": 120},
-    {"name": "Gyarados", "level": 45, "strength": 9, "speed": 1, "type": "water", "life": 120}
-]
-player2_pokemons = [
-    {"name": "Arcanine", "level": 42, "strength": 9, "speed": 3, "type": "fire", "life": 120},
-    {"name": "Vaporeon", "level": 37, "strength": 8, "speed": 4, "type": "water", "life": 120},
-    {"name": "Rhydon", "level": 39, "strength": 7, "speed": 2, "type": "earth", "life": 120},
-    {"name": "Dragonite", "level": 50, "strength": 10, "speed": 5, "type": "wind", "life": 120},
-    {"name": "Lapras", "level": 44, "strength": 6, "speed": 1, "type": "water", "life": 120}
-]
+player1_pokemons = []
+player2_pokemons = []
+players = [player1_pokemons,player2_pokemons]
+types = ["fire","water","earth","wind"]
+for i in range(2):
+    for j in range(5):
+        name = f"pokemon-{i}"
+        level = random.randint(10,70)
+        strength = random.randint(1,10)
+        speed = random.randint(1,5)
+        pokemon_type = random.choice(types)
+        players[i].append({"name": name, "level": level, "strength": strength, "speed": speed, "type": pokemon_type, "life": 120})
 
 player1_pokemon_alive = len(player1_pokemons)
 player2_pokemon_alive = len(player2_pokemons)
