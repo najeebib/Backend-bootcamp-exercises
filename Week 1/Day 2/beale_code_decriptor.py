@@ -169,7 +169,7 @@ class BealeCipher:
     def __next__(self):
         try:
             index = next(self.cipher)
-            word = self.words[index - 1]
+            word = self.words[index]
             return word[0]
         except StopIteration:
             raise StopIteration
@@ -179,3 +179,4 @@ arr = []
 for letter in cipher_iterator:
     arr.append(letter)
 print(arr)
+# message is: our plan is to gett all of apples' stocks as soon as possible
