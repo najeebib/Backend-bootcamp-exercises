@@ -45,33 +45,46 @@ def ordered_insert(file_name,dates, records, datetime_pattern, mood_entry):
 
 def get_last_record(file_name):
     last = ""
-    # todo add if check for file exist
-    with open(file_name, 'r') as f:
-        for line in f.readlines():
-            last = line
+    if os.path.isfile(file_name):
+        with open(file_name, 'r') as f:
+            for line in f.readlines():
+                last = line
     return last
-def print_range(file_name, from_str, to_str, date_pattern):
+
+def print_range(file_name, from_str, to_str, datetime_pattern):
     date_format = "%d-%m-%Y"
     from_date = datetime.strptime(from_str, date_format)
     to_date = datetime.strptime(to_str, date_format)
-    # todo add if check for file exist
-    with open(file_name, 'r') as f:
-        for line in f.readlines():
-            line_date_str = find_date(line,date_pattern)
-            line_date = datetime.strptime(line_date_str, date_format)
-            if from_date < line_date < to_date:
-                print(line)
+    if os.path.isfile(file_name):
+        with open(file_name, 'r') as f:
+            for line in f.readlines():
+                line_date_str = find_date(line,datetime_pattern)
+                line_date = datetime.strptime(line_date_str, date_format)
+                if from_date < line_date < to_date:
+                    print(line)
 
-def find_date(entry, date_pattern):
+def delete_range(file_name, from_str, to_str, datetime_pattern):
+    dates, records = get_all_records(file_name, datetime_pattern)
+    date_format = "%d-%m-%Y"
+    from_date = datetime.strptime(from_str, date_format)
+    to_date = datetime.strptime(to_str, date_format)
+    indices_to_remove = [i for i, date in enumerate(dates) if from_date <= date <= to_date]
+    for index in indices_to_remove:
+        del dates[index]
+        del records[index]
+    with open(file_name, 'w') as f:
+        for line in records:
+            f.write(line)
+
+def find_date(entry, datetime_pattern):
     date_str = ""
-    date_match = re.search(date_pattern, entry)
+    date_match = re.search(datetime_pattern, entry)
     if date_match:
         date_str = date_match.group()
     return date_str
-def is_same_week(mood_str, last_record, date_pattern):
-
-    mood_date_str = find_date(mood_str, date_pattern)
-    last_record_date_str = find_date(last_record, date_pattern)
+def is_same_week(mood_str, last_record, datetime_pattern):
+    mood_date_str = find_date(mood_str, datetime_pattern)
+    last_record_date_str = find_date(last_record, datetime_pattern)
     print(mood_date_str)
     print(last_record_date_str)
     date_format = "%d-%m-%Y"
