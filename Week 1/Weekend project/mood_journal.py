@@ -1,14 +1,51 @@
 import os
 import re
 from datetime import datetime, timedelta
+from bisect import bisect_left
 
-def read_all_records(file_name):
-    with open(file_name, 'r') as f:
-        for line in f.readlines():
-            print(line)
+def read_records(file_name):
+    if os.path.isfile(file_name):
+        with open(file_name, 'r') as f:
+            for line in f.readlines():
+                print(line)
+
+def get_all_records(file_name, datetime_pattern):
+    dates = []
+    records = []
+    if os.path.isfile(file_name):
+        with open(file_name, 'r') as f:
+            for line in f.readlines():
+                date_str = find_date(line, datetime_pattern)
+                date_format = "%H:%M-%d-%m-%Y"
+                date = datetime.strptime(date_str, date_format)
+                index_to_insert = bisect_left(dates, date)
+                dates.insert(index_to_insert, date)
+                records.insert(index_to_insert, line)
+    return dates, records
+    
+def ordered_insert(file_name,dates, records, datetime_pattern, mood_entry):
+    date_str = find_date(mood_entry, datetime_pattern)
+    date_format = "%H:%M-%d-%m-%Y"
+    date = datetime.strptime(date_str, date_format)
+    index = -1
+    dates_size = len(dates)
+    is_between = False
+    for i in range(dates_size-1):
+        if dates[i] < date and dates[i+1] > date:
+            index = i
+            is_between = True
+            break
+    
+    if not is_between:
+        index = dates_size+1
+    records.insert(index+1, mood_entry)
+    with open(file_name, 'w') as f:
+        for line in records:
+            f.write(line)
 
 def get_last_record(file_name):
     last = ""
+    # todo add if check for file exist
     with open(file_name, 'r') as f:
         for line in f.readlines():
             last = line
@@ -17,6 +54,7 @@ def print_range(file_name, from_str, to_str, date_pattern):
     date_format = "%d-%m-%Y"
     from_date = datetime.strptime(from_str, date_format)
     to_date = datetime.strptime(to_str, date_format)
+    # todo add if check for file exist
     with open(file_name, 'r') as f:
         for line in f.readlines():
             line_date_str = find_date(line,date_pattern)
@@ -34,7 +72,8 @@ def is_same_week(mood_str, last_record, date_pattern):
 
     mood_date_str = find_date(mood_str, date_pattern)
     last_record_date_str = find_date(last_record, date_pattern)
-
+    print(mood_date_str)
+    print(last_record_date_str)
     date_format = "%d-%m-%Y"
     try:
         mood_date = datetime.strptime(mood_date_str, date_format)
@@ -59,7 +98,7 @@ emotions_dictionary = {"Joy":["happy","excited","delighted","blissful","jubilant
                        ,"Surprise":["astonished","amazed","startled","shocked","stunned"], "Disgust":["repulsed","revolted","displeased","sickend","appalled"]
                        ,"Love":["affectionate","adoring","fond","devoted","enamored"], "Confusion":["bewildered","perplexed","baffled","confused","puzzled"]
                        ,"Contentment":["satisfied","pleased","gratified","content","fullfilled"], "Embarrassment":["ashamed","humiliated","blushing","self-conscious","mortified"]}
-datetime_pattern = r'^\d{2}:\d{2}-\d{2}-\d{2}-\d{4}$'
+datetime_pattern = r'\d{2}:\d{2}-\d{2}-\d{2}-\d{4}$'
 date_pattern = r'\d{2}-\d{2}-\d{4}$'
 
 name = input("Enter your name \n")
@@ -76,9 +115,12 @@ else:
 
 if os.path.isfile(file_name):
     last_record = get_last_record(file_name)
+    dates, records = get_all_records(file_name, datetime_pattern)
     if is_same_week(mood_string, last_record, date_pattern):
         print("new entry is in same week as last one")
     else:
         print("new entry isn't in same week as last one")
-with open(file_name, 'a+') as f:
-    f.write(mood_string)
+    ordered_insert(file_name, dates, records, datetime_pattern, mood_string)
+else:
+    with open(file_name, 'w+') as f:
+        f.write(mood_string)
