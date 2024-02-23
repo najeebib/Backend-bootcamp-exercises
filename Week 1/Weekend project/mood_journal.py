@@ -23,7 +23,7 @@ def print_range(file_name, from_str, to_str, date_pattern):
             line_date = datetime.strptime(line_date_str, date_format)
             if from_date < line_date < to_date:
                 print(line)
-                
+
 def find_date(entry, date_pattern):
     date_str = ""
     date_match = re.search(date_pattern, entry)
@@ -46,7 +46,14 @@ def is_same_week(mood_str, last_record, date_pattern):
 
     except ValueError:
         print("Invalid date format. Please provide the date in the format:", date_format)
-        
+def check_emotion(entry, emotions_dictionary):
+    for key in emotions_dictionary:
+        words = emotions_dictionary[key]
+        for word in words:
+            index = entry.lower().find(word)
+            if index != -1:
+                return key
+
 emotions_dictionary = {"Joy":["happy","excited","delighted","blissful","jubilant"], "Sadness":["unhappy","depressed","sorrowful","mournful","melancholic"]
                        ,"Anger":["furious","irritated","enraged","annoyed","agitated"], "Fear":["scared","terrified","anxious","nervous","panicked"]
                        ,"Surprise":["astonished","amazed","startled","shocked","stunned"], "Disgust":["repulsed","revolted","displeased","sickend","appalled"]
@@ -66,10 +73,12 @@ else:
     now = datetime.now()
     dt_string = now.strftime("%H:%M-%d-%m-%Y")
     mood_string = mood_string + " " + dt_string + "\n"
-last_record = get_last_record(file_name)
-if is_same_week(mood_string, last_record, date_pattern):
-    print("new entry is in same week as last one")
-else:
-    print("new entry isn't in same week as last one")
+
+if os.path.isfile(file_name):
+    last_record = get_last_record(file_name)
+    if is_same_week(mood_string, last_record, date_pattern):
+        print("new entry is in same week as last one")
+    else:
+        print("new entry isn't in same week as last one")
 with open(file_name, 'a+') as f:
     f.write(mood_string)
