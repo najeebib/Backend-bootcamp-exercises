@@ -13,17 +13,28 @@ def get_last_record(file_name):
         for line in f.readlines():
             last = line
     return last
-
+def print_range(file_name, from_str, to_str, date_pattern):
+    date_format = "%d-%m-%Y"
+    from_date = datetime.strptime(from_str, date_format)
+    to_date = datetime.strptime(to_str, date_format)
+    with open(file_name, 'r') as f:
+        for line in f.readlines():
+            line_date_str = find_date(line,date_pattern)
+            line_date = datetime.strptime(line_date_str, date_format)
+            if from_date < line_date < to_date:
+                print(line)
+                
+def find_date(entry, date_pattern):
+    date_str = ""
+    date_match = re.search(date_pattern, entry)
+    if date_match:
+        date_str = date_match.group()
+    return date_str
 def is_same_week(mood_str, last_record, date_pattern):
-    mood_date_str = ""
-    date_match = re.search(date_pattern, mood_str)
-    if date_match:
-        mood_date_str = date_match.group()
-    
-    last_record_date_str = ""
-    date_match = re.search(date_pattern, last_record)
-    if date_match:
-        last_record_date_str = date_match.group()
+
+    mood_date_str = find_date(mood_str, date_pattern)
+    last_record_date_str = find_date(last_record, date_pattern)
+
     date_format = "%d-%m-%Y"
     try:
         mood_date = datetime.strptime(mood_date_str, date_format)
