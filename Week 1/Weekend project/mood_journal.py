@@ -85,8 +85,6 @@ def find_date(entry, datetime_pattern):
 def is_same_week(mood_str, last_record, datetime_pattern):
     mood_date_str = find_date(mood_str, datetime_pattern)
     last_record_date_str = find_date(last_record, datetime_pattern)
-    print(mood_date_str)
-    print(last_record_date_str)
     date_format = "%d-%m-%Y"
     try:
         mood_date = datetime.strptime(mood_date_str, date_format)
@@ -98,6 +96,40 @@ def is_same_week(mood_str, last_record, datetime_pattern):
 
     except ValueError:
         print("Invalid date format. Please provide the date in the format:", date_format)
+
+def is_after(mood_str, last_record, datetime_pattern):
+    mood_date_str = find_date(mood_str, datetime_pattern)
+    last_record_date_str = find_date(last_record, datetime_pattern)
+    date_format = "%d-%m-%Y"
+    try:
+        mood_date = datetime.strptime(mood_date_str, date_format)
+        last_record_date = datetime.strptime(last_record_date_str, date_format)
+        date_difference = mood_date - last_record_date
+        return date_difference >= timedelta(days=1)
+
+    except ValueError:
+        print("Invalid date format. Please provide the date in the format:", date_format)
+def get_day_records(file_name, last_record_date):
+    records = []
+    date_format = "%d-%m-%Y"
+    if os.path.isfile(file_name):
+        with open(file_name, 'r') as f:
+            for line in f.readlines():
+                line_date_str = find_date(line, r'\d{2}-\d{2}-\d{4}$')
+                line_date = datetime.strptime(line_date_str, date_format)
+                if line_date == last_record_date:
+                    records.append(line)
+    return records
+
+def check_day_emotions(emotions_count, records, emotions_dictionary):
+    total = 0
+    for record in records:
+        emotion = check_emotion(record, emotions_dictionary)
+        if emotion != None:
+            emotions_count[emotion] += 1
+            total += 1
+    return emotions_count, total
+
 def check_emotion(entry, emotions_dictionary):
     for key in emotions_dictionary:
         words = emotions_dictionary[key]
@@ -105,6 +137,7 @@ def check_emotion(entry, emotions_dictionary):
             index = entry.lower().find(word)
             if index != -1:
                 return key
+    return None
 
 emotions_dictionary = {"Joy":["happy","excited","delighted","blissful","jubilant"], "Sadness":["unhappy","depressed","sorrowful","mournful","melancholic"]
                        ,"Anger":["furious","irritated","enraged","annoyed","agitated"], "Fear":["scared","terrified","anxious","nervous","panicked"]
@@ -114,26 +147,59 @@ emotions_dictionary = {"Joy":["happy","excited","delighted","blissful","jubilant
 datetime_pattern = r'\d{2}:\d{2}-\d{2}-\d{2}-\d{4}$'
 date_pattern = r'\d{2}-\d{2}-\d{4}$'
 
+
 name = input("Enter your name \n")
 file_name = name + ".txt"
 
-mood_string =  input("Enter your current mood\n")
-date_match  = re.search(date_pattern, mood_string)
-if date_match:
-    mood_string += "\n"
-else:
-    now = datetime.now()
-    dt_string = now.strftime("%H:%M-%d-%m-%Y")
-    mood_string = mood_string + " " + dt_string + "\n"
+keep_going = True
+while keep_going:
+    user_input = input("Enter a number a number for what action do you want to be done:\n1. Enter new mood entry\n2. Print all records\n3. Print records in range (date format dd-mm-yyyy dd-mm-yyyy)\n4. Delete records in range\n5. Exit\n")
+    if user_input.isnumeric():
+        command = int(user_input)
+        match command:
+            case 1:
+                
 
-if os.path.isfile(file_name):
-    last_record = get_last_record(file_name)
-    dates, records = get_all_records(file_name, datetime_pattern)
-    if is_same_week(mood_string, last_record, date_pattern):
-        print("new entry is in same week as last one")
-    else:
-        print("new entry isn't in same week as last one")
-    ordered_insert(file_name, dates, records, datetime_pattern, mood_string)
-else:
-    with open(file_name, 'w+') as f:
-        f.write(mood_string)
+                mood_string =  input("Enter your current mood\n")
+                date_match  = re.search(date_pattern, mood_string)
+                if date_match:
+                    mood_string += "\n"
+                else:
+                    now = datetime.now()
+                    dt_string = now.strftime("%H:%M-%d-%m-%Y")
+                    mood_string = mood_string + " " + dt_string + "\n"
+
+                if os.path.isfile(file_name):
+                    last_record = get_last_record(file_name)
+                    dates, records = get_all_records(file_name, datetime_pattern)
+                    if is_same_week(mood_string, last_record, date_pattern):
+                        print("new entry is in same week as last one")
+                    else:
+                        print("new entry isn't in same week as last one")
+                    if is_after(mood_string, last_record, date_pattern):
+                        last_record_date_str = find_date(last_record, date_pattern)
+                        date_format = "%d-%m-%Y"
+                        last_record_date = datetime.strptime(last_record_date_str, date_format)
+                        emotions_count = {"Joy": 0,"Sadness": 0,"Anger": 0,"Fear": 0,"Surprise": 0,"Disgust": 0,"Love": 0,"Confusion": 0,"Contentment": 0,"fullfilled": 0}
+                        day_records = get_day_records(file_name, last_record_date)
+                        emotions_count, total = check_day_emotions(emotions_count, day_records, emotions_dictionary)
+                        day_report = f"last day you were "
+                        for key in emotions_count:
+                            if emotions_count[key] > 0:
+                                percent = (emotions_count[key] / total) * 100
+                                day_report += f" {percent}% {key} "
+                        print(day_report)
+                    ordered_insert(file_name, dates, records, datetime_pattern, mood_string)
+                else:
+                    with open(file_name, 'w+') as f:
+                        f.write(mood_string)
+            case 2:
+                read_records(file_name)
+            case 3:
+                date_range = input("Enter range (from to) (dd-mm-yyyy dd-mm-yyyy)\n").split()
+                print_range(file_name, date_range[0], date_range[1], date_pattern)
+            case 4:
+                date_range = input("Enter range (from to) (dd-mm-yyyy dd-mm-yyyy)\n").split()
+                delete_range(file_name, date_range[0], date_range[1], date_pattern)
+            case 5:
+                keep_going = False
