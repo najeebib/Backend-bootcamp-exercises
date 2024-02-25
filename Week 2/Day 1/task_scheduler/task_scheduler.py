@@ -54,13 +54,12 @@ def print_all_tasks(scheduler):
 scheduler = [[None] * 8 for _ in range(5)]
 keep_going = True
 while keep_going:
-    user_input = input("Enter a number a number for what action do you want to be done:\n1. Enter new task\n2. Print all tasks\n3. close\n")
+    user_input = input("Enter a number a number for what action do you want to be done:\n1. Enter new task\n2. close\n")
     if user_input.isnumeric():
         command = int(user_input)
         match command:
             case 1:
                 task_name, duration, day, hour = get_user_input()
-                print(task_name, duration, day, hour)
                 if hour != -1 and day != -1:
                     day_index = day -1
                     hour_index = hour - 1
@@ -82,10 +81,9 @@ while keep_going:
                         insert_task(scheduler, day_index, hour_index)   
                     else:
                         print("there is no time available for this task") 
-                print(scheduler)
+                print("task was added")
             case 2:
                 print_all_tasks(scheduler)
-            case 3:
                 keep_going = False
 
 
