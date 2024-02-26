@@ -96,12 +96,10 @@ class Store:
             for pet in self.robots:
                 if pet.id == id:
                     return pet
-                    break
         else:
             for pet in self.robots:
                 if pet.name == input_given:
                     return pet
-                    break
         print("There is no robot with this id or name")
         return None
 
