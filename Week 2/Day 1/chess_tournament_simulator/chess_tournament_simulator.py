@@ -22,8 +22,8 @@ def odds_of_winning(player1, player2):
 def calculate_elo(player1, player2):
     player1_elo = player1["elo"]
     player2_elo = player2["elo"]
-    player1_probability = round(1/(1+10**((player2_elo-player1_elo) / 400)) * 20)
-    player2_probability = round(1/(1+10**((player1_elo-player2_elo) / 400)) * 20)
+    player1_probability = round((1 - (1/(1+10**((player2_elo-player1_elo) / 400)))) * 20)
+    player2_probability = round((1 - (1/(1+10**((player1_elo-player2_elo) / 400)))) * 20)
     return player1_probability, player2_probability
 
 def winner(player1_odds, player1, player2):
