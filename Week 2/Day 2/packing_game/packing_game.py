@@ -1,28 +1,149 @@
 class Item:
-    def __init__(self, name, weight):
+    def __init__(self, name, weight, is_electronic):
         self.name = name
         self.weight = weight
+        self.is_electronic = is_electronic
 
     def get_weight(self):
         return self.weight
     def get_name(self):
         return self.name
+    def get_is_electronic(self):
+        return self.is_electronic
 
-class Electronic(Item):
-    def __init__(self, name, weight, brand):
-        super().__init__(name, weight)
+class Electronic:
+    def __init__(self, brand, size, OS, storage, display, camera, cpu, ram, gpu, battery_life, fitness_features, connectivity):
         self.brand = brand
+        self.size = size
+        self.OS = OS
+        self.storage = storage
+        self.display = display
+        self.camera = camera
+        self.cpu = cpu
+        self.ram = ram
+        self.battery_life = battery_life
+        self.gpu = gpu
+        self.fitness_features = fitness_features
+        self.connectivity = connectivity
     
     def print_item(self):
         print(f"Name: {self.name} Weight: {self.weight} Brand: {self.brand}")
     
-class Accessory(Item):
-    def __init__(self, name, weight, origin):
-        super().__init__(name, weight)
+class Accessory:
+    def __init__(self,color, origin,materials,price,  new, accuracy, case):
+        self.color = color
         self.origin = origin
+        self.materials = materials
+        self.price = price
+        self.new = new
+        self.accuracy = accuracy
+        self.case = case
     
     def print_item(self):
         print(f"Name: {self.name} Weight: {self.weight} Origin: {self.origin}")
+
+class Charger(Item):
+    def __init__(self,name, color, price, weight, size, brand):
+        super().__init__(name, weight,True)
+        electronic = Electronic(brand, size, "", "", "", "", "", "", "", "" , "", "")
+        accessory = Accessory(color, "", "", price, "", "", "")
+        self.price = accessory.price
+        self.size = electronic.size
+        self.brand = electronic.brand
+        self.color = accessory.color
+
+    def print_item(self):
+        print(f"Name: {self.name} Weight: {self.weight} Price: {self.price} Size: {self.size} Brand: {self.brand} Color: {self.color}")
+
+class Passport(Item):
+    def __init__(self,name, weight, color, price, origin):
+        super().__init__(name, weight,False)
+        accessory = Accessory(color, origin, "", price, "", "","")
+        self.price = accessory.price
+        self.origin = accessory.origin
+        self.color = accessory.color
+            
+    def print_item(self):
+        print(f"Name: {self.name} Weight: {self.weight} Price: {self.price} origin: {self.origin} Color: {self.color}")
+
+class Sunglasses(Item):
+    def __init__(self,name, weight,color, case, origin):
+        super().__init__(name, weight,False)
+        accessory = Accessory(color, origin, "", 0, "", "", case)
+        self.origin = accessory.origin
+        self.color = accessory.color
+        self.case = accessory.case
+            
+    def print_item(self):
+        print(f"Name: {self.name} Weight: {self.weight} Has case: {self.case} origin: {self.origin} Color: {self.color}")
+
+class Sneakers(Item):
+    def __init__(self,name, weight, brand, used, origin):
+        super().__init__(name, weight,False)
+        electronic = Electronic(brand, 0, "", "","", "", "", "", "", "", "", "")
+        accessory = Accessory("", origin, "", 0, used, "", "")
+        self.brand = electronic.brand
+        self.used = accessory.new
+        self.origin = accessory.origin
+            
+    def print_item(self):
+        print(f"Name: {self.name} Weight: {self.weight} Brand: {self.brand} Used: {self.used} Origin: {self.origin}")
+
+
+class Smartphone(Item):
+    def __init__(self,name, weight, brand, OS, storage, display, camera, materials):
+        super().__init__(name, weight,True)
+        electronic = Electronic(brand, 0, OS, storage,display, camera, "", "", "", "", "", "")
+        accessory = Accessory("", "", materials, 0, "", "", "")
+        self.brand = electronic.brand
+        self.OS = electronic.OS
+        self.storage = electronic.storage
+        self.display = electronic.display
+        self.camera = electronic.camera
+        self.materials = accessory.materials
+            
+    def print_item(self):
+        print(f"Name: {self.name} Weight: {self.weight} Brand: {self.brand} OS: {self.OS} Storage: {self.storage} Display: {self.display} Camera: {self.camera} Materials: {self.materials}")
+
+class Laptop(Item):
+    def __init__(self,name, weight, brand, cpu, ram, storage, gpu):
+        super().__init__(name, weight,True)
+        electronic = Electronic(brand, 0, "", storage, "", "", cpu, ram, gpu, "", "", "")
+        self.brand = electronic.brand
+        self.cpu = electronic.cpu
+        self.ram = electronic.ram
+        self.storage = electronic.storage
+        self.gpu = electronic.gpu
+            
+    def print_item(self):
+        print(f"Name: {self.name} Weight: {self.weight} Brand: {self.brand} CPU: {self.cpu} RAM: {self.ram} Storage: {self.storage} GPU: {self.gpu}")
+
+class Smartwatch(Item):
+    def __init__(self,name, weight, brand,display, battery_life, fitness_features, connectivity):
+        super().__init__(name, weight,True)
+        electronic = Electronic(brand, 0, "", "",display, "", "", "", "", battery_life, fitness_features, connectivity)
+        self.brand = electronic.brand
+        self.display = electronic.display
+        self.battery_life = electronic.battery_life
+        self.fitness_features = electronic.fitness_features
+        self.connectivity = electronic.connectivity
+        
+            
+    def print_item(self):
+        print(f"Name: {self.name} Weight: {self.weight} Brand: {self.brand} Display: {self.display} Battery life: {self.battery_life} Fitness features: {self.fitness_features} Connectivity: {self.connectivity}")
+
+class Campus(Item):
+    def __init__(self,name,weight, brand, accuracy, price, materials):
+        super().__init__(name, weight,False)
+        electronic = Electronic(brand, 0, "", "","", "", "", "", "", "", "", "")
+        accessory = Accessory("", "", materials, price, "", accuracy, "")
+        self.brand = electronic.brand
+        self.price = accessory.price
+        self.accuracy = accessory.accuracy
+        self.materials = accessory.materials
+            
+    def print_item(self):
+        print(f"Name: {self.name} Weight: {self.weight} Brand: {self.brand} Accuracy: {self.accuracy} Price: {self.price} Materials: {self.materials}")
 
 class Inventory:
     def __init__(self):
@@ -40,16 +161,16 @@ class Inventory:
         match category:
             case 1:
                 for item in self.items:
-                    if isinstance(item, Electronic):
+                    if item.get_is_electronic():
                         item.print_item()
             case 2:
                 for item in self.items:
-                    if isinstance(item, Accessory):
+                    if not item.get_is_electronic():
                         item.print_item()
     def print_by_category(self):
         for i in range(1,3):
             if i == 1:
-                print("Elctronic items")
+                print("electronic items")
                 self.print_category(i)
             else:
                 print("Accessory items")
@@ -62,6 +183,7 @@ class Inventory:
         print("No item in inventory with this name")
         return None
 
+        
 class Bag(Inventory):
     def __init__(self):
         super().__init__()
@@ -97,17 +219,24 @@ class Bag(Inventory):
     
 
 def init_store():
-    elcetronic_devices = [{"name": "Universal charger", "weight": 12, "brand": "Lenovo"}, {"name": "smartphone", "weight": 6, "brand": "Apple"}, {"name": "Laptop", "weight": 60, "brand": "Dell"}, {"name": "Smartwatch", "weight": 44, "brand": "Samsung"}]
-
-    accessory_items = [{"name": "Passport", "weight": 1, "origin": "USA"}, {"name": "Sunglasses", "weight": 10, "origin": "Italy"}, {"name": "Sneakers", "weight": 14, "origin": "Spain"}, {"name": "Campus", "weight": 4, "origin": "Unknown"}]
     store_inventory = Inventory()
-    for item in elcetronic_devices:
-        new_item = Electronic(item["name"], item["weight"], item["brand"])
-        store_inventory.add_item(new_item)
-
-    for item in accessory_items:
-        new_item = Accessory(item["name"], item["weight"], item["origin"])
-        store_inventory.add_item(new_item)
+    charger = Charger("universal charger", "black", 50, 12, 50, "lenovo")
+    store_inventory.add_item(charger)
+    passport = Passport("passport", 1, "blue", 50, "USA")
+    store_inventory.add_item(passport)
+    sunglasses = Sunglasses("sunglasses", 10, "black", True, "Italy")
+    store_inventory.add_item(sunglasses)
+    sneakers = Sneakers("sneakers", 14, "New Balance", False, "Spain")
+    store_inventory.add_item(sneakers)
+    smartphone = Smartphone("smartphone", 10, "Apple", "IOS", "128 GB", "AMOLED", "Dual lens", "lithium, plastic")
+    store_inventory.add_item(smartphone)
+    laptop = Laptop("laptop", 60, "Dell", "Intel i7", "16 GB", "512 GB SSD", "NVIDIA GeForce4")
+    store_inventory.add_item(laptop)
+    smartwatch = Smartwatch("smartwatch", 44,"Samsung", "Touchscreen", "3 Days", "Heart rate monitor", "Bluetooth")
+    store_inventory.add_item(smartwatch)
+    campus = Campus("campus", 4, "Samsung", "high", 50, "iron, plastic")
+    store_inventory.add_item(campus)
+    
     return store_inventory
 
 bag = Bag()
