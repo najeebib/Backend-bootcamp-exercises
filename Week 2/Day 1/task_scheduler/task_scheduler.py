@@ -1,4 +1,5 @@
 def get_user_input():
+    # ask the user for the task info
     task_name = input("Enter task name\n")
     duration_str = input("Enter task duration (from 1 to 8)\n")
     duration = 0
@@ -15,7 +16,7 @@ def get_user_input():
     if hour_str != "":
         hour = int(hour_str)
     return task_name, duration, day, hour
-
+# go through all  the callendar and check if there is a free space for the task
 def check_day_has_time(scheduler, day_index, hour_index):
     is_available = True
     for i in range(hour_index, hour_index + duration):
@@ -24,12 +25,12 @@ def check_day_has_time(scheduler, day_index, hour_index):
                 is_available = False
                 break
     return is_available
-    
+# insert task to calendar
 def insert_task(scheduler, day_index, hour_index):
     for i in range(hour_index, hour_index + duration):
             if i < 8:
                 scheduler[day_index][i] = task_name
-
+# return the task index in the calendar 
 def get_task_location(scheduler, duration):
     day_index = -1
     hour_index = -1
@@ -45,6 +46,7 @@ def get_task_location(scheduler, duration):
             hour_index = final_hour + 1 - duration
             break
     return day_index, hour_index
+# print all tasks in the calendar
 def print_all_tasks(scheduler):
     for i in range(5):
         for j in range(8):
@@ -54,6 +56,7 @@ def print_all_tasks(scheduler):
 scheduler = [[None] * 8 for _ in range(5)]
 keep_going = True
 while keep_going:
+    # ask user to enter action command
     user_input = input("Enter a number a number for what action do you want to be done:\n1. Enter new task\n2. close\n")
     if user_input.isnumeric():
         command = int(user_input)
@@ -86,7 +89,3 @@ while keep_going:
                 print_all_tasks(scheduler)
                 keep_going = False
 
-
-
-
-        
