@@ -31,7 +31,7 @@ def read_ship_data(file_name):
             return None
 
 request_endpoint = "https://api.open-meteo.com/v1/forecast?latitude=32.689516&longitude=35.373868&current=temperature_2m"
-keep_going = True
+keep_game_going = True
 launch = False
 name = ""
 fuel = 100
@@ -50,7 +50,7 @@ if os.path.exists("ship.json"):
         name = input("Enter ship name\n")
 spaceship = SpaceShip(name, fuel, health)
 
-while keep_going:
+while keep_game_going:
     
     if not launch:
         user_input = input("Enter what do you want to do\n1. Launch space ship\n2. Close the game\n")
@@ -60,7 +60,7 @@ while keep_going:
                 print("The space ship has been launched")
                 launch = True
             case 2:
-                keep_going = False
+                keep_game_going = False
             case _:
                 print("Enter valid input")
     else:
@@ -69,7 +69,6 @@ while keep_going:
         time.sleep(2)
         chance = random.random()
         if chance < 0.5:
-            
             valid = False
             while not valid:
                 action_str = input("Enter what do you want to do\n1. Keep exploring\n2. Return home\n")
@@ -85,7 +84,7 @@ while keep_going:
                     print("Space ship is en route to home planet")
                     save_ship_json(spaceship)
                     valid = True
-                    keep_going = False
+                    keep_game_going = False
                 else:
                     print("Enter valid action")
         elif chance > 0.5 and chance < 0.625:
@@ -155,13 +154,13 @@ while keep_going:
                     else:
                         spaceship.set_health(0)
                         print("You got pulled into the black hole and died")
-                        keep_going = False
+                        keep_game_going = False
                     valid = True
                     print("You managed to destroy the enemy ship, but sustained heavy damage")
                 elif action == 2:
                     spaceship.set_health(0)
                     print("You got pulled into the black hole and died")
-                    keep_going = False
+                    keep_game_going = False
                 else:
                     print("Enter valid action")
             
@@ -169,8 +168,8 @@ while keep_going:
         spaceship.set_fuel(fuel)
         if fuel < 1:
             print("Ship ran out of fuel, you are stuck in space till death")
-            keep_going = False
+            keep_game_going = False
         if health < 1:
             print("Your ship has been destroyed")
-            keep_going = False
+            keep_game_going = False
         print(spaceship)
