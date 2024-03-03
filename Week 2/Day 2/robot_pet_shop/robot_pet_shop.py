@@ -13,7 +13,7 @@ class Employee(Robot):
 
     def get_salary(self):
         return self.salary
-
+# good seperation of classes. efficient
 class PetRobot(Robot):
     def __init__(self, name, id, battery_type, main_material, price, cost_to_fix_per_day, animal_type, status):
         super().__init__(name, id, battery_type)
@@ -30,6 +30,7 @@ class PetRobot(Robot):
         return self.price
     
     def print_pet(self):
+        # should print also the status - to see easier the broken robots or robots in repare
         print(f"Pet name: {self.name} Id: {self.id} material: {self.main_material} animal type: {self.animal_type} battery type: {self.battery_type} price: {self.price}")
 
     def change_satus(self, status):
@@ -49,6 +50,8 @@ class Store:
         animal_types = ["herbivore", "carnivore"]
         materials = ["iron", "steel"]
         # add 3 employees to list
+
+        ### better to initialize workers in a functions, not in init directlty
         for i in range(3):
             employee_name = f"robot-{i}"
             employee_battery_type = random.choice(battery_types)
@@ -57,6 +60,8 @@ class Store:
             self.emplyees.append(employee)
             id += 1
         # add some pet robots
+
+        ### better to initialize pets in a functions, not in init directlty
         for i in range(15):
             pet_name = f"pet-robot-{i}"
             pet_battery_type = random.choice(battery_types)
@@ -124,8 +129,9 @@ class Store:
         self.balance -= repirs_cost
 
 def main():
+    ### good comments, makes the code easier to read and understand
     pet_store = Store()
-    keep_going = True
+    keep_going = True ### weird name... names should be descriptive
     days = 1
     while keep_going:
         print(f"Day {days}")
@@ -159,6 +165,7 @@ def main():
                 case 6:
                     # print a specific robot if it exists
                     user_in = input("Enter id or name\n")
+                    ### what if there is no such pet? you dont handle this case - same for all cases where you search for pets
                     pet = pet_store.get_robot_by_id_name(user_in)
                     if pet:
                         pet.print_pet()
@@ -173,6 +180,7 @@ def main():
                     # change a robot's status to broken
                     user_in = input("Enter id or name\n")
                     pet = pet_store.get_robot_by_id_name(user_in)
+                    ### what if there is no such pet? you dont handle this case
                     if pet:
                         pet.change_satus("broken")
                 case 9:
