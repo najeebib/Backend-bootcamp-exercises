@@ -5,6 +5,7 @@ import asyncio
 import requests
 import json
 import matplotlib.pyplot  as plt
+from modules.astroid import Astroid
 async def get_data(url):
     loop = asyncio.get_event_loop()
     future = loop.run_in_executor(None, requests.get, url)
@@ -25,24 +26,27 @@ def save_astroid_list(all_astroids):
             close_approach_data = astroid["close_approach_data"][0]
             speed_kmh = float(close_approach_data["relative_velocity"]["kilometers_per_hour"])
             miss_distance = float(close_approach_data["miss_distance"]["kilometers"])
-            json_object = {"id": id ,"name": name, "min_diameter": min_diameter, "max_diameter": max_diameter, "miss_distance": miss_distance, "speed_kmh": speed_kmh}
-            list_of_astroids.append(json_object)
+            astroid = Astroid(id, name, min_diameter, max_diameter, speed_kmh, miss_distance)
+            list_of_astroids.append(astroid)
     return list_of_astroids
 
 def save_astroid_to_file(list_of_astroids):
+    json_list = []
     with open("astroids.json", 'w') as f:
-        json.dump(list_of_astroids, f, indent=2)
+        for astroid in list_of_astroids:
+            json_list.append(astroid.get_json())
+        json.dump(json_list, f, indent=2)
 
 def calculate_danger_index(astroid, a, b, c):
-    avg_diameter = (astroid["min_diameter"] + astroid["max_diameter"]) / 2
-    danger_index = a * avg_diameter + (b * astroid["speed_kmh"])*((1/c) * astroid["miss_distance"]) 
+    avg_diameter = (astroid.get_min_diameter() + astroid.get_max_diameter()) / 2
+    danger_index = a * avg_diameter + (b * astroid.get_speed_kmh())*((1/c) * astroid.get_miss_distance()) 
     return danger_index
 
 def plot_data(list_of_astroids, a=1, b=1, c=1):
     names = []
     danger_indices = []
     for astroid in list_of_astroids:
-        names.append(astroid["name"])
+        names.append(astroid.get_name())
         danger_index = calculate_danger_index(astroid, a, b, c)
         danger_indices.append(danger_index)
 
@@ -95,6 +99,3 @@ while keep_asking_for_input:
     keep_going = input("Do you want to close program? (y/n)\n")
     if keep_going == 'y':
         keep_asking_for_input = False
-
-
-
