@@ -34,13 +34,5 @@ class TestList:
         elif not self.validate_number(other):
             print("Input value isn't a number")   
             return False
-        else: 
-            #for val in value:# Test().is_in_list([5,1,[7,[2]]], 7) return true but Test().is_in_list([5,1,[7,[2]]], 2) return False
-                #if self.is_list(val):
-                    #if other in val:# the reason for that is this doesnt check if the value is in a nested list inside the list
-                        #return True
-                #else:
-                    #if other == val:
-                        #return True
-            #return False
+        else:
             return self.is_number_in_nested_list(value, other)

@@ -3,7 +3,7 @@ import requests
 import asyncio
 from modules.astroid import Astroid
 import matplotlib.pyplot  as plt
-
+# get the data from the API
 async def get_data(url):
     loop = asyncio.get_event_loop()
     future = loop.run_in_executor(None, requests.get, url)
@@ -12,7 +12,7 @@ async def get_data(url):
     json_obj = json.loads(string)
 
     return json_obj
-
+# extract the data from the response and save it in a list of astroid objects
 def save_astroid_list(all_astroids):
     list_of_astroids = []
     for key, value in all_astroids.items():
@@ -27,19 +27,19 @@ def save_astroid_list(all_astroids):
             astroid = Astroid(id, name, min_diameter, max_diameter, speed_kmh, miss_distance)
             list_of_astroids.append(astroid)
     return list_of_astroids
-
+# save the astroids data in a json file
 def save_astroid_to_file(list_of_astroids):
     json_list = []
     with open("astroids.json", 'w') as f:
         for astroid in list_of_astroids:
             json_list.append(astroid.get_json())
         json.dump(json_list, f, indent=2)
-
+# calculate the astroid's danger index
 def calculate_danger_index(astroid, a, b, c):
     avg_diameter = (astroid.get_min_diameter() + astroid.get_max_diameter()) / 2
     danger_index = a * avg_diameter + (b * astroid.get_speed_kmh())*((1/c) * astroid.get_miss_distance()) 
     return danger_index
-
+# plot the data on a bar chart
 def plot_data(list_of_astroids, a=1, b=1, c=1):
     names = []
     danger_indices = []

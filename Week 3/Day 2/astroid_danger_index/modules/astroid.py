@@ -1,5 +1,6 @@
 class Astroid:
     def __init__(self, id, name, min_diameter, max_diameter, speed_kmh, miss_distance):
+        # all the relevant astroid data
         self._id = id
         self._name = name
         self._min_diameter = min_diameter

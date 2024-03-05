@@ -11,7 +11,7 @@ def convert_to_num(str):
     if str.isnumeric():
         return int(str)
     return -1
-
+# save the ship data to json
 def save_ship_json(spaceship):
     name = spaceship.get_name()
     fuel = spaceship.get_fuel()
@@ -20,7 +20,7 @@ def save_ship_json(spaceship):
     with open("ship.json", "w") as json_file:
         json.dump(ship_data, json_file)
         print("Spaceship data saved to ship.json.")
-
+# read the game data from json file
 def read_ship_data(file_name):
     with open(file_name, "r") as json_file:
         try:
@@ -36,8 +36,9 @@ launch = False
 name = ""
 fuel = 100
 health = 100
-
+# check if there is a ship saved
 if os.path.exists("ship.json"):
+    # ask the user if they want to use same ship or no
     new_ship = input("Do you want to send a new ship or use the previous one\n1. New one\n2. Use old one\n")
     command = convert_to_num(new_ship)
     if command == 2:
@@ -51,8 +52,9 @@ if os.path.exists("ship.json"):
 spaceship = SpaceShip(name, fuel, health)
 
 while keep_game_going:
-    
+    # check if the ship has been launched
     if not launch:
+        # ask the user to launch the ship or close game
         user_input = input("Enter what do you want to do\n1. Launch space ship\n2. Close the game\n")
         command = convert_to_num(user_input)
         match command:
@@ -68,19 +70,24 @@ while keep_game_going:
         health = spaceship.get_health()
         time.sleep(2)
         chance = random.random()
+        # there are 50% odds nothing happens and 50% chance that one of 4 events happens
         if chance < 0.5:
             valid = False
             while not valid:
+                # ask the user what they want to do now
                 action_str = input("Enter what do you want to do\n1. Keep exploring\n2. Return home\n")
                 action = convert_to_num(action_str)
+                # keep exploring 
                 if action == 1:
                     valid = True
+                    # get weather data
                     r = requests.get(request_endpoint)
                     data = r.json()
                     current_temperature = data["current"]["temperature_2m"]
                     print(f"Temperature at current location is {current_temperature}")
 
                 elif action == 2:
+                    # return ship to home planet
                     print("Space ship is en route to home planet")
                     save_ship_json(spaceship)
                     valid = True
@@ -91,6 +98,7 @@ while keep_game_going:
             print("You encountered an astroid field")
             valid = False
             while not valid:
+                # ask the user what they want to do now
                 action_str = input("Enter what do you want to do\n1. Try to evade the field\n2. Fire at the field\n")
                 action = convert_to_num(action_str)
                 if action == 1:
@@ -110,6 +118,7 @@ while keep_game_going:
             print("You encountered a pirate ship")
             valid = False
             while not valid:
+                # ask the user what they want to do now
                 action_str = input("Enter what do you want to do\n1. Fight the pirates\n2. Try to evade the enemy ship\n")
                 action = convert_to_num(action_str)
                 if action == 1:
@@ -127,6 +136,7 @@ while keep_game_going:
             print("You encountered an alien ship")
             valid = False
             while not valid:
+                # ask the user what they want to do now
                 action_str = input("Enter what do you want to do\n1. Attack the alien ship\n2. Negotiate with the aliens\n")
                 action = convert_to_num(action_str)
                 if action == 1:
@@ -143,6 +153,7 @@ while keep_game_going:
             print("You encountered a black hole")
             valid = False
             while not valid:
+                # ask the user what they want to do now
                 action_str = input("Enter what do you want to do\n1. Try to escape\n2. Accept death\n")
                 action = convert_to_num(action_str)
                 if action == 1:
