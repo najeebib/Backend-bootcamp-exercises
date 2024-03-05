@@ -1,6 +1,6 @@
 import asyncio
 import requests
-
+# send a get request to the url
 async def get_data(url):
     loop = asyncio.get_event_loop()
     future = loop.run_in_executor(None, requests.get, url)
@@ -8,7 +8,7 @@ async def get_data(url):
     
     return response.content
 
-
+# count how many genres
 def count_genres(genres):
     genres_count = {}
     for genre in genres:

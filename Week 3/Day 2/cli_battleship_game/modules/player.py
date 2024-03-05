@@ -6,24 +6,27 @@ class Player:
 
     def get_rockets(self):
         return self._rockets
-    
+    # fire the rocket at the position player choose
     def fire_rocket(self,position, board):
         hit_positions = board.get_all_hit_position()
+        # check if the player already hit this position
         if position in hit_positions:
                 print("Can't hit same position twice")
         else:
             board.add_hit_at_position(position)
             ship = board.get_tile(position)
+            # check if the position that been hit is a ship or no
             if  ship != None:
+                # if it is a ship increas player hits and destroy ship
                 self.decrease_rockets()
                 self.increase_hits()
                 ship.set_is_detroyed()
                 print(f"Player hit ship at position {position}")
             else:
+                # if it isn't a ship increas player missed
                 self.decrease_rockets()
                 self.increase_missed()
                 print(f"Player missed at position {position}")
-
     def decrease_rockets(self):
         self._rockets -= 1
 
