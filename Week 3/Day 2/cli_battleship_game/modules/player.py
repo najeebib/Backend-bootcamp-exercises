@@ -13,10 +13,11 @@ class Player:
                 print("Can't hit same position twice")
         else:
             board.add_hit_at_position(position)
-            if board.get_tile(position) != None:
+            ship = board.get_tile(position)
+            if  ship != None:
                 self.decrease_rockets()
                 self.increase_hits()
-                board.decrease_ships_num()
+                ship.set_is_detroyed()
                 print(f"Player hit ship at position {position}")
             else:
                 self.decrease_rockets()

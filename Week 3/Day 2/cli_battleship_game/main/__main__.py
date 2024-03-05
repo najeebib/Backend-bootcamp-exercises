@@ -17,21 +17,23 @@ def add_5_ships(board):
 board = Board()
 add_5_ships(board)
 
-player = Player()
-
+player = Player(25)
 while player.get_rockets() > 0 and board.get_ships_num() > 0:
     print(player)
     print(board)
     user_input = input("Enter what position to hit\n(format: number number)\n").split()
     position = []
-    if user_input[0][0].isnumeric() and user_input[1][0].isnumeric():
-        position = [int(user_input[0][0]), int(user_input[1][0])]
-        if position[0] < 5 and position[1] <5:
-            player.fire_rocket(position, board)
+    if len(user_input) > 1:
+        if user_input[0][0].isnumeric() and user_input[1][0].isnumeric():
+            position = [int(user_input[0][0]), int(user_input[1][0])]
+            if position[0] < 5 and position[1] <5:
+                player.fire_rocket(position, board)
+            else:
+                print("The position you entered is outside the board")
         else:
-            print("The position you entered is outside the board")
+            print("Invalid input")
     else:
-        print("Invalid input")
+        print("Enter input according to aforementioned format")
 
 print(f"The player has sunk {5-board.get_ships_num()} ships")
 print(f"Player hit accuracy: {player.get_hits()/(player.get_hits() + player.get_missed())}")
