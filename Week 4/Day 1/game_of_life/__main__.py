@@ -1,6 +1,9 @@
 from .modules.cell import Cell
 from .modules.board import Board
 from .modules.game_logic import get_rounds_from_user, get_position_from_user, ask_user_enter_cells, round
+import logging
+
+logging.basicConfig(level=logging.INFO, filename="log.log", filemode="w")
 
 def main():
     rounds_number = get_rounds_from_user()

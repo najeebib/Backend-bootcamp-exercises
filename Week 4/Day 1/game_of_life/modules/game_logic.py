@@ -1,6 +1,7 @@
 from .cell import Cell
 from .board import Board
 import copy
+import logging
 
 def get_rounds_from_user():
     """ Ask the user to enter game's number of rounds and return it """
@@ -13,6 +14,7 @@ def get_rounds_from_user():
                 print("Enter a positive number")
         except ValueError:
             print("Invalid input. Please enter a valid number.")
+            logging.warning("Invalid input. Please enter a valid number.")
 
 def get_position_from_user():
     """ Ask the user to enter the positon of the cell that will be made alive and return it """
@@ -26,6 +28,7 @@ def get_position_from_user():
                 print("Enter numbers the specified range")
         except ValueError:
             print("Invalid input. Please enter a valid number.")
+            logging.warning("Invalid input. Please enter a valid number.")
 
 def ask_user_enter_cells():
     """ Ask the user to enter if they want to continue to enter cells and return it """
@@ -37,6 +40,7 @@ def ask_user_enter_cells():
             return False
         else:
             print("Enter y or n")
+            logging.warning("Invalid input. Please enter y or n.")
 
 def count_alive_neighbors(board: Board, cell: Cell):
     """ Count the number of alive neighbors that the cell has and return it
