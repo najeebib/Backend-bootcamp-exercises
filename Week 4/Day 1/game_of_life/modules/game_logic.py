@@ -76,4 +76,4 @@ def round(board: Board):
             else:
                 if cell_neighbors == 3:
                     cell.change_status("alive")
-    board.cells = board_copy.cells
+    board.set_cells(board_copy.get_cells()) 

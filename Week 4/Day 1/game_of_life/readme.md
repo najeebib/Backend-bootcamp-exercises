@@ -8,8 +8,10 @@ _position = position of the cell on the board
 
 ## Board  
 A class that will represent the board itself  
-cells
+_cells: 2d list that will have all rhe cells in the board
 
+get_cells(): return the cells list
+set_cells(): sets the cells list
 get_cell(position): return the cell at the given position  
 get_alive_cells_count(): return the number of alive cells on board  
 
