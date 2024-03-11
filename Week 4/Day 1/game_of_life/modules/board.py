@@ -10,8 +10,10 @@ class Board:
         self._cells = [[Cell("dead", (j, i)) for i in range(8)] for j in range(8)]
     def get_cells(self):
         return self._cells
+    
     def set_cells(self, cells):
         self._cells = cells
+        
     def get_cell(self, position: tuple):
         """ return the cell in the given position, if it is a valid position on the board
 
