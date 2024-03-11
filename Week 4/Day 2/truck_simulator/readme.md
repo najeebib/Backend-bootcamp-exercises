@@ -20,3 +20,5 @@ check if the given truck can travel on the given road with the given length
 
 ### utils
 laod all the roads moduls into the roads list in traversal_calculator
+
+![program_diagram drawio](https://github.com/najeebib/Backend-bootcamp-exercises/assets/79699737/970c648a-a634-4cf6-ba92-7231aa072138)
