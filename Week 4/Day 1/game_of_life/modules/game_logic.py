@@ -48,7 +48,6 @@ def count_alive_neighbors(board: Board, cell: Cell):
     :param cell: the cell we are counting their neighbors
     """
     cell_position = cell.get_position()
-    
     count = 0
     for i in range(cell_position[0]-1,cell_position[0]+2):
         for j in range(cell_position[1]-1,cell_position[1]+2):
