@@ -1,0 +1,106 @@
+# main.py
+
+# get the user input
+file_name = agv[2]
+with open(file_name, "w")
+
+while True
+	# ask user for command 1 - 8
+	match command
+		case 1:
+			name, amount = ask_input()
+			add_record(name, amount, file_name)
+		
+		case 2:
+			name, amount = ask_input()
+			remove_record(name, amount, file_name)
+			
+		case 3:
+			name = ask_input()
+			search(name, file_name)
+		case 4:
+			name, new_name = ask_input()
+			update_name(name, new_name, file_name)
+		case 5:
+			name, new_amount = ask_input()
+			update_amount(name, new_amount, file_name)
+		case 6:
+			print_amount(file_name)
+		case 7:
+			display(file_name)
+		case 7:
+			exit()
+			
+			
+			
+# function.py
+add_record(name, amount, file_name)
+	if search(name):
+		if only one record:
+			remove_record(name, amount)
+			
+		else:
+			print(the records)
+			#ask user to pick which one to update
+			remove_record(name, amount)
+		# append record to end of file
+	else:
+	
+		with open(file_name, "w+") as f
+			record = "name, amount"
+			f.write(record)
+
+remove_record(name, amount, file_name):
+	open(file_name, "r") as f
+	list_of_records = f.readlines()
+	close()
+	if search(name):
+		if only one record
+			
+			if record in list_of_records:
+				# remove from list_of_records
+				# overwrite the file
+		else:
+			print(the records)
+			#ask user to pick which one to remove
+			# remove from list_of_records
+			# overwrite the file
+			
+search(name, file_name):
+	records = []
+	with open(file_name, "r") as f:
+		lines = f.readlines()
+		for line in lines:
+			if line.contains(name)
+				records.append(line)
+	return records
+		
+update_name(name, new_name, file_name):
+	records = search(name, file_name)
+	all_records = get_all_records(file_name)
+	if len(records) == 1:
+		find the index of this record in the list
+		make a new record 
+		put it in the same place 
+		overwrite the file
+	elif len(records) > 1:
+		display records
+		ask user for which one 
+		find the index of this record in the list
+		make a new record 
+		put it in the same place 
+		overwrite the file
+	else: 
+		error(no record found)
+update_amount(name, new_amount, file_name):
+	the same as update_name
+print_amount():
+	all_records = get_all_records_amounts(file_name)
+	return sum(all_records)
+
+display(file_name):
+	all_records = get_all_records(file_name)
+	sorted = all_records.sort()
+	for record in sorted
+		print(record)
+	
