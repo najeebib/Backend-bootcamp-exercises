@@ -9,10 +9,13 @@ class GameManager:
         """ each round each player visits 1-3 places, this functions adds for each player 1-3 random visited places """
         players = game.get_players()
         places = game.get_places()
+        # add to each player new visited places
         for player in players:
             if not player.get_is_dead():
+                # choose random places
                 number_of_places = random.randint(1,3)
                 new_places = random.choices(places, k=number_of_places)
+                # add each place to player
                 for place in new_places:
                     player.add_visited_place(place)
 
@@ -35,9 +38,11 @@ class GameManager:
         suspects = []
         players = game.get_players()
         for player in players:
+            # check if the player visited the murder place and has the murder weapon as one of their favorite weapons
             if murder_place in player.get_visited_places() and murder_weapon in  player.get_favorite_weapons() and not player.get_is_dead():
                 suspects.append(player)
         if len(suspects) < 2:
+            # if there is only one suspect add a random player to suspect list
             while True:
                 random_player = random.choice(players)
                 if not random_player in suspects:
@@ -53,14 +58,15 @@ class GameManager:
         """
         num_of_suspects = len(suspects)
         for i in range(num_of_suspects):
+            # print all suspects data
             suspect = suspects[i]
             places_visited = suspect.get_visited_places()
             favorite_weapons = suspect.get_favorite_weapons()
             two_places = random.choices(places_visited, k=2)
             one_weapon = random.choices(favorite_weapons, k=1)[0]
             name = suspect.get_name()
-
             print(f"Suspect number {i + 1} name: {name}, visited places: {two_places} and favorite weapon: {one_weapon}")
+            
         accused_number = UserInputManager.get_accused_number(num_of_suspects)
         accused_player = suspects[accused_number - 1]
         accused_player.set_is_dead()

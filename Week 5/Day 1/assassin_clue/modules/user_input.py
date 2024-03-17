@@ -1,6 +1,7 @@
 import logging
 class UserInputManager:
     def get_number_of_players():
+        """ get the number of players from the user """
         while True:
             try:
                 num = int(input(f"Enter the number of players:\n"))
@@ -10,6 +11,7 @@ class UserInputManager:
                 logging.warning("Invalid input. Please enter a valid number.")
 
     def get_accused_number(limit: int):
+        """ get the number of the player they want to accuse """
         while True:
             try:
                 command = int(input(f"Enter the number of the player you want to accuse (between 1 - {limit}):\n"))
