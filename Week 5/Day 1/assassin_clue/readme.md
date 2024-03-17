@@ -62,3 +62,7 @@ This module contains the main game loop and orchestrates the gameplay. It intera
   - **Methods:**
     - `get_number_of_players()`: Prompts the user to enter the number of players.
     - `get_accused_number(limit: int)`: Prompts the user to enter the number of the player they want to accuse.
+   
+# Diagram
+
+![classDiagram drawio](https://github.com/najeebib/Backend-bootcamp-exercises/assets/79699737/1262d5cb-b286-415c-b38a-eedce21a01e2)
