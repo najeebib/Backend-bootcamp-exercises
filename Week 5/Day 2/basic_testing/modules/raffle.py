@@ -2,6 +2,21 @@ from .person import Person
 import random
 class Raffle:
     def __init__(self, max_people, max_tickets, ticket_price):
+        """ initilize the raffle class
+
+            class attributes:
+            people: list of all people that participated in the raffle
+            tickets: number of total tickets bought
+            max_people: max amount of people that can partcipate in the raffle
+            max_tickets: max amount of tickets in the raffle
+            total_earning: total amount of money earned from ticket sales
+            ticket_price: price of ticket
+
+            class members:
+            for each attribute there is a get method
+            buy_ticket: recieve a person increase their tickets by one and add them to list of people if they dont exist
+            select_winner: make a list of all tickets and randomly choose a winner
+        """
         self._people = []
         self._tickets = 0
         self._max_people = max_people
