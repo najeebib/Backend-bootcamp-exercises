@@ -58,3 +58,7 @@ The Raffle System is a simple application that facilitates raffle events. It all
 ## Testing
 
 The application includes unit tests for both the `Person` and `Raffle` classes to ensure the functionality of the system. You can run the tests using the appropriate testing framework.
+
+
+![Untitled Diagram drawio](https://github.com/najeebib/Backend-bootcamp-exercises/assets/79699737/856b63c4-7eb7-4596-8957-2fa5747b4786)
+
