@@ -5,6 +5,7 @@ import logging
 import random
 
 class GameManager:
+    @staticmethod
     def players_visit_random_places(game: Game):
         """ each round each player visits 1-3 places, this functions adds for each player 1-3 random visited places """
         players = game.get_players()
@@ -18,7 +19,7 @@ class GameManager:
                 # add each place to player
                 for place in new_places:
                     player.add_visited_place(place)
-
+    @staticmethod
     def murder(murderer: Player):
         """ a murder happens on one of the places that the murderer visited with one of their favorit weapons
             this function gets the murderer and return a random place they visited that the murder took place at and a random weapon that was used for the murder
@@ -30,7 +31,7 @@ class GameManager:
         print(f"A murder has happend in {murder_place}, murder weapon is {murder_weapon}")
 
         return murder_place, murder_weapon
-
+    @staticmethod
     def suspect(game: Game, murder_place: str, murder_weapon: str):
         """ the place of the murder and weapon are given, the function will generate a list of all suspected player 
             a suspect is a player that visited the place where the murder took place and has the murder weapon as one of their favorite weapons
@@ -51,7 +52,7 @@ class GameManager:
         if len(suspects) == 2:
             return suspects
         return random.choices(suspects, k=2)
-        
+    @staticmethod   
     def accuse_player(suspects: list):
         """ get the list of suspects and ask the user to choose which one to acuse
             when a player is accused they are killed (by ejecting them from the ship like in Among us)
