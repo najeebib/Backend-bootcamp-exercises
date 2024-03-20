@@ -57,3 +57,4 @@ The Rabbit Simulation System is a program that simulates the population dynamics
 
 Unit tests are included for the `Record` and `Simulation` classes to ensure their functionality. These tests cover various methods and attributes of the classes.
 
+![biology research diagram drawio](https://github.com/najeebib/Backend-bootcamp-exercises/assets/79699737/f57765f1-aea4-43d0-b188-704d3d73a11a)
