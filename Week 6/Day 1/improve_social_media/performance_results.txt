@@ -1,0 +1,12 @@
+Measurments for regular social media platform
+register: 1.266676311691602e-06 seconds
+get_suer: 4.00003045797348e-07 seconds
+generate: 7.666725044449171e-07 seconds
+
+
+Measurments for improved social media platform
+register: 7.666725044449171e-07 seconds
+get_suer: 4.66670220096906e-07 seconds
+generate: 7.666336993376414e-07 seconds
+
+

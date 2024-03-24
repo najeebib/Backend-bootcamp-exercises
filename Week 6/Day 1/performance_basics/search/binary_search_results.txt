@@ -1,0 +1,16 @@
+Index of 15 is 15, execution time is 2.900022082030773e-06 seconds
+Index of 24 is 24, execution time is 7.00005330145359e-07 seconds
+Index of 85 is 85, execution time is 1.500011421740055e-06 seconds
+Index of 11 is 11, execution time is 6.00004568696022e-07 seconds
+Index of 62 is 62, execution time is 6.00004568696022e-07 seconds
+Index of 18 is 18, execution time is 9.00006853044033e-07 seconds
+Index of 48 is 48, execution time is 9.00006853044033e-07 seconds
+Index of 98 is 98, execution time is 9.998911991715431e-07 seconds
+Index of 85 is 85, execution time is 1.00000761449337e-06 seconds
+Index of 62 is 62, execution time is 5.00003807246685e-07 seconds
+Index of 28 is 28, execution time is 9.00006853044033e-07 seconds
+Index of 98 is 98, execution time is 1.00000761449337e-06 seconds
+Index of 23 is 23, execution time is 1.100008375942707e-06 seconds
+Index of 72 is 72, execution time is 1.00000761449337e-06 seconds
+Index of 10 is 10, execution time is 1.00000761449337e-06 seconds
+binary search function runtime is  6.029999349266291e-05 seconds
