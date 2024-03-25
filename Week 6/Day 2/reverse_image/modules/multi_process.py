@@ -18,17 +18,22 @@ def multi_process(path):
     width, height = img.size
 
     start_time = time.time()
-
+    # number of processes to use
+    # each process will take 1/8th of the image, which is (6000x500) pixels each
     num_of_processes = 8
-    pixels_per_process = int(height // num_of_processes)
+    # number of height pixels each process will work on (4000/8 = 500)
+    pixels_per_process = height // num_of_processes
 
+    # use ProcessPoolExecutor to execute the process_chunk function concurrently
     with concurrent.futures.ProcessPoolExecutor() as executor:
         futures = []
         for i in range(num_of_processes):
+            # calculate the starting and ending y-coordinate for each process
             start_y = i * pixels_per_process
             end_y = start_y + pixels_per_process
+            # submit the process_chunk function to the executor
             futures.append(executor.submit(process_chunk, path, width, start_y, end_y))
-
+        # retrieve the images and start_y, end_y from each process when it finishes
         processed_images = [future.result() for future in concurrent.futures.as_completed(futures)]
 
     end_time = time.time()
@@ -46,6 +51,4 @@ def multi_process(path):
         # paste the edited region on the image
         final_img.paste(edited_region, (0, start_y))
 
-
     final_img.show()
-
