@@ -52,3 +52,4 @@ def multi_process(path):
         final_img.paste(edited_region, (0, start_y))
 
     final_img.show()
+    final_img.save('./images/multi_process_reversed.jpg')

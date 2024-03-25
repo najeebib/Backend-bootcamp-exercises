@@ -23,3 +23,4 @@ def single_process(path):
     print(f"Image reversing with single thread took {total}")
     # show new image
     img.show()
+    img.save('./images/single_process_reversed.jpg')
