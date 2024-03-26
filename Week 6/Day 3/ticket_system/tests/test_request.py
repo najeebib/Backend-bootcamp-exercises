@@ -1,13 +1,13 @@
 from modules.request import Request
 class TestRequest:
     def setup_method(self):
-        self.request = Request(11111111.0, "Concert", 2)
+        self.request = Request('2024-03-26 11:50:00', "Concert", 2)
 
     def test_get_timestamp_type(self):
-        assert type(self.request.get_timestamp()) == float
+        assert type(self.request.get_timestamp()) == str
 
     def test_get_timestamp(self):
-        assert self.request.get_timestamp() == 11111111
+        assert self.request.get_timestamp() == '2024-03-26 11:50:00'
 
     def test_get_event_type(self):
         assert type(self.request.get_event()) == str

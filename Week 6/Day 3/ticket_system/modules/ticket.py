@@ -20,3 +20,7 @@ class Ticket:
     def set_is_sold(self):
         self._is_sold = True
     
+    def ticket_json(self):
+        ticket_json = {"id": self._id, "price": self._price, "event": self._event, "sold": self._is_sold}
+        return ticket_json
+    

@@ -30,3 +30,9 @@ class TestTicket:
     def test_set_is_sold(self):
         self.ticket.set_is_sold()
         assert self.ticket.get_is_sold() == True
+
+    def test_ticket_json_type(self):
+        assert type(self.ticket.ticket_json()) == dict
+
+    def test_ticket_json(self):
+        assert self.ticket.ticket_json() == {"id": 1, "price": 20, "event": "Concert", "sold": False}
