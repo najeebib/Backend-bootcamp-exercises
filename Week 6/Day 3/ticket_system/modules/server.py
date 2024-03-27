@@ -11,6 +11,7 @@ class Server:
         self.current_concurrent_requests = 0
     
     def sell_ticket(self, event, num_of_tickets):
+        # open the databse to get the most up to date data, this is strict consistency implemmentation
         with open(self.tickets_file, 'r') as f:
             self.tickets_db = json.load(f)
         if event not in self.tickets_db or (self.tickets_db[event] - num_of_tickets) <= 0:
