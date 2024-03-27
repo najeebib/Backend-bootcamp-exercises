@@ -13,6 +13,5 @@ class Request:
     def get_number_of_tickets(self):
         return self._number_of_tickets
     
-    def request_json(self):
-        request_json = {"timestamp": self._timestamp, "tickets": self._number_of_tickets, "event": self._event}
-        return request_json
+    def __str__(self):
+        return f"timestamp {self._timestamp} tickets {self._number_of_tickets} event {self._event}"
