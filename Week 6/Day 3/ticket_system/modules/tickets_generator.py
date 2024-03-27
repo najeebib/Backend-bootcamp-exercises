@@ -1,4 +1,4 @@
-from ticket import Ticket
+from .ticket import Ticket
 import random
 import json
 class TicketsGenerator:
@@ -17,11 +17,6 @@ class TicketsGenerator:
                 ticket = Ticket(i, price, event)
                 tickets[event] += 1
         for i in range(1,3):
-             path = f"../data/tickets.json"
+             path = f"./data/tickets.json"
              with open(path, 'w') as f:
                   json.dump(tickets, f, indent=2)
-
-
-if __name__ == "__main__":
-     ticket_gen = TicketsGenerator()
-     ticket_gen.genrate_500_tickets()
