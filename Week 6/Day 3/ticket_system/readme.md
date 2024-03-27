@@ -31,3 +31,15 @@ Not implemented in this project but could be used to distribute requests across 
 ### `test_ticket.py` and `test_request.py`
 
 Contain unit tests for the `Ticket` and `Request` classes, respectively, ensuring their functionality.
+
+### Data consistency
+In this project I want to use strict consistency, every read operation must return the most recent write operation
+every time the server sells a ticket it reads the database and when the ticket is sold the database is updated
+this way the databse is up to date all the time
+the downside of this approach is that it takes a lot of network traffic to read and write everytime
+
+I implemented it in the server code
+with open(self.tickets_file, 'r') as f:
+            self.tickets_db = json.load(f)
+everytime the server handles a request it gets the most recent databses
+![ticket system diagram drawio](https://github.com/najeebib/Backend-bootcamp-exercises/assets/79699737/32100e07-52c2-4599-b185-4704ebb8a3ee)
