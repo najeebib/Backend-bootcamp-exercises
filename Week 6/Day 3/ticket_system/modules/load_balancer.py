@@ -20,6 +20,7 @@ class LoadBalancer:
 
     def handle_event(self, request: Request):
         # assign server to process the request using round robin
+        ### ok chice - remember to thing what are the upsides and downsides
         server = self.servers[self.last_server_index]
         status = server.process_request(request)
         while True:
@@ -29,6 +30,7 @@ class LoadBalancer:
                     self.request_generator.remove_event(request.get_event())
                 break  # break out of the retry loop if process_request succeeds
             except Exception as e:# when exception is raised cuz server cant handle more requestrs
+                ### better is to seperate or specify the exact exception
                 print(f"An error occurred: {e}. Retrying in 5 seconds...")
                 time.sleep(1)# wait intill one of the servers are available
                 continue  # retry process_request
