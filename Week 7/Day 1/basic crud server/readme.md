@@ -27,3 +27,5 @@ Implements the FastAPI server with endpoints for handling student-related operat
  - `GET /students/{id}`: Retrieves a student by ID.
  - `POST /students`: Adds a new student to the database.
  - `GET /class/{name}`: Retrieves students belonging to a specific class.
+
+![crud server diagram drawio](https://github.com/najeebib/Backend-bootcamp-exercises/assets/79699737/01609da9-76db-4f80-9e9b-c30ab1957d51)
