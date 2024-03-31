@@ -1,0 +1,65 @@
+[
+  {
+    "name": "najeeb",
+    "id": 1,
+    "age": 25,
+    "classes": [
+      "operating systems",
+      "physics 2"
+    ]
+  },
+  {
+    "name": "najeeb3",
+    "id": 2,
+    "age": 25,
+    "classes": [
+      "operating systems",
+      "android development"
+    ]
+  },
+  {
+    "name": "najeeb3",
+    "id": 3,
+    "age": 25,
+    "classes": [
+      "system design",
+      "android development"
+    ]
+  },
+  {
+    "name": "najeeb3",
+    "id": 4,
+    "age": 25,
+    "classes": [
+      "system design",
+      "android development"
+    ]
+  },
+  {
+    "name": "najeeb3",
+    "id": 5,
+    "age": 25,
+    "classes": [
+      "system design",
+      "android development"
+    ]
+  },
+  {
+    "name": "najeeb3",
+    "id": 5,
+    "age": 25,
+    "classes": [
+      "system design",
+      "android development"
+    ]
+  },
+  {
+    "name": "najeeb3",
+    "id": 6,
+    "age": 25,
+    "classes": [
+      "system design",
+      "android development"
+    ]
+  }
+]
