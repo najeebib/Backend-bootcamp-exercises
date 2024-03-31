@@ -11,10 +11,6 @@ class StudentFormat(BaseModel):
     age: int
     classes: list
 
-@app.get('/')
-def home():
-    return {"Data": "testing"}
-
 @app.get('/students')
 def get_stidents():
     # get all student from the db
