@@ -1,31 +1,49 @@
-# Student Management System
+# FastAPI Student Management System
 
-The Student Management System is a FastAPI-based Python application that allows users to manage student records stored in a JSON file. It provides endpoints to retrieve student information, add new students, and filter students by their classes.
+This project implements a FastAPI-based web application for managing students, including authentication and authorization functionalities. It provides endpoints for signing up, signing in, adding students, retrieving students, and filtering students by class.
 
-## Modules
+## Project Structure
 
-### `student.py`
+The project consists of the following modules and routes:
 
-Defines the `Student` class representing a student with attributes such as name, ID, age, and classes. It also provides methods to retrieve student information.
+### Modules
 
-### `data_handler.py`
+- **`auth_model.py`:** Defines the Pydantic model for authentication.
+- **`student_model.py`:** Defines the Pydantic model for representing student data.
+- **`auth_functions.py`:** Contains functions related to authentication, including hashing passwords, generating JWT tokens, and verifying tokens.
+- **`db_functions.py`:** Provides functions for loading and saving data from/to JSON files.
 
-Contains the `DataHandler` class responsible for reading student data from and adding new students to a JSON file.
+### Routes
 
-### `server.py`
+- **`auth_route.py`:** Defines routes related to authentication, such as user sign-up and sign-in.
+- **`student_route.py`:** Contains routes for managing student data, including retrieving students, adding students, and filtering students by class.
 
-Implements the FastAPI server with endpoints for handling student-related operations such as retrieving all students, fetching a student by ID, adding a new student, and filtering students by class.
+### Middleware
 
-## Usage
+- **Logging Middleware (`log_req`):** Middleware to log incoming requests and their methods.
 
-1. Start the FastAPI server by running `server.py`.
-   ```bash
-   uvicorn server:app --reload
+### Server
+
+- **`server.py`:** Implements the FastAPI server and middleware for logging requests.
+
+## How to Run
+
+1. Start the FastAPI server using `uvicorn server:app --reload`.
+2. Access the API documentation at `http://127.0.0.1:8000/docs` to interact with the available endpoints.
 
 ## Endpoints
- - `GET /students`: Retrieves all students from the database.
- - `GET /students/{id}`: Retrieves a student by ID.
- - `POST /students`: Adds a new student to the database.
- - `GET /class/{name}`: Retrieves students belonging to a specific class.
 
-![crud server diagram drawio](https://github.com/najeebib/Backend-bootcamp-exercises/assets/79699737/01609da9-76db-4f80-9e9b-c30ab1957d51)
+- **Authentication Endpoints:**
+  - `POST /auth/sign_up`: Sign up a new user.
+  - `POST /auth/sign_in`: Sign in an existing user.
+
+- **Student Management Endpoints:**
+  - `GET /school/students`: Retrieve all students.
+  - `GET /school/students/{id}`: Retrieve a specific student by ID.
+  - `POST /school/students`: Add a new student.
+  - `GET /school/class/{name}`: Retrieve students belonging to a specific class.
+
+Each endpoint performs the necessary authentication and authorization checks before processing requests.
+
+For more details, refer to the respective module and route files.
+
