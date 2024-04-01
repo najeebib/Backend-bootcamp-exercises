@@ -1,8 +1,9 @@
 from fastapi import FastAPI, Request
-from routes import students_route
+from routes import students_route, auth_route
 app  = FastAPI()
 
 app.include_router(students_route.router)
+app.include_router(auth_route.router)
 
 
 @app.middleware("http")
