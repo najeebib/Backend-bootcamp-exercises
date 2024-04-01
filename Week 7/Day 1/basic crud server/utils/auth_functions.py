@@ -8,14 +8,14 @@ from base64 import b64decode as decode
 
 load_dotenv()
 secret_key = os.getenv("secret")
-
+# hash the password with bcrypt
 def hash_password(password: str) -> str:
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
     return hashed_password.decode('utf-8')
-
+# check the password
 def verify_password(stored_pass,user_pass):
     return bcrypt.checkpw(user_pass.encode('utf-8'), stored_pass.encode('utf-8'))
-
+# has password, make new user data and put it in db
 def prepare_new_user_data(password,username, is_admin):
     hashed_password = hash_password(password)
     current_db = db_fns.load_db('./data/users.json')
@@ -26,7 +26,7 @@ def prepare_new_user_data(password,username, is_admin):
 
     }
     return current_db
-
+# generate a new jwt
 def generate_jwt(payload):
     encoded_jwt = jwt.encode(payload, secret_key, algorithm="HS256")   
     print('encoded_jwt: ', encoded_jwt)
@@ -40,7 +40,7 @@ def verify_jwt(user_jwt):
         print('e: ', e)
         print("bad token")
         return False
-
+# check if a user is logged in
 def check_token(request):
         auth_header = request.headers.get('authorization')
         if auth_header and auth_header.startswith("Bearer "):
@@ -51,8 +51,7 @@ def check_token(request):
             except Exception as e:
                 raise e
         return
-
-
+# check if logged user is an admin
 def check_token_if_admin(request):
         auth_header = request.headers.get('authorization')
         if auth_header and auth_header.startswith("Bearer "):

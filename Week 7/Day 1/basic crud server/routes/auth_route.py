@@ -6,9 +6,14 @@ router = APIRouter()
 
 @router.post('/auth/sign_up')
 async def sign_up(body:Auth_Model):
+    # hash the user password and add them to db
     updated_db = auth_fns.prepare_new_user_data(body.password, body.username, body.is_admin)
+    # save db to file
     db_fns.save_to_db(updated_db)
-    auth_token = auth_fns.generate_jwt({"user role": "guest"})
+    if body.is_admin:
+        auth_token = auth_fns.generate_jwt({"user role": "admin"})
+    else:
+        auth_token = auth_fns.generate_jwt({"user role": "guest"})
     return {"msg":"user created","token":auth_token}
 
 @router.post('/auth/sign_in')
@@ -18,6 +23,7 @@ async def sign_in(body:Auth_Model):
         if stored_user:
             stored_pass = stored_user["password"]
             is_admin = stored_user["is_admin"]
+            # compare the request password to the password saved in file
             if auth_fns.verify_password(stored_pass, body.password):
                 if is_admin:
                     auth_token = auth_fns.generate_jwt({"user role":"admin"})

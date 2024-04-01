@@ -8,21 +8,21 @@ router = APIRouter()
 
 @router.get('/school/students')
 def get_students(request: Request):
-    # get all student from the db
+    # check if user logged in
     if auth_fns.check_token(request):
+        # get all student from the db
         return db_fns.load_db('./data/students.json')
     else:
         raise HTTPException(400, "no token")
 
 @router.get('/school/students/{id}')
 def get_student(id: int, request: Request):
+    # check if user logged in
     if auth_fns.check_token(request):
-
         students = db_fns.load_db('./data/students.json')
         for _, student_info in students.items():
             if student_info["id"] == id:
                 return student_info
-
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No student with this id exists")
     else:
         raise HTTPException(400, "no token")
@@ -30,6 +30,7 @@ def get_student(id: int, request: Request):
 
 @router.post('/school/students')
 def add_student(student: student_model, request: Request):
+    # check if admin logged in
     if auth_fns.check_token_if_admin(request):
         # check if a student with this id allready exists in the db
         students = db_fns.load_db('./data/students.json')
@@ -46,6 +47,7 @@ def add_student(student: student_model, request: Request):
 
 @router.get("/school/class/{name}")
 def get_class(name: str, request: Request):
+    # check if admin logged in
     if auth_fns.check_token_if_admin(request):
         students = db_fns.load_db('./data/students.json')
         students_in_class = []
