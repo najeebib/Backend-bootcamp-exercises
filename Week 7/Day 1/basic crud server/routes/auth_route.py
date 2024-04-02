@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 import utils.auth_functions as auth_fns
 import utils.db_functions as db_fns
 from models.auth_model import Auth_Model
@@ -31,9 +31,9 @@ async def sign_in(body:Auth_Model):
                     auth_token = auth_fns.generate_jwt({"user role":"guest"})
                 return {"msg":"user sign in successfully","token":auth_token}
             else:
-                return {"msg": "invalid credentials"}
+                raise HTTPException(403, "Invalid credntials")
         else:
-            return {"msg": "user not found"}
+            raise HTTPException(404, "No user found")
     except FileNotFoundError as e:
         print(e)
-        return {"msg": "error: users db not found"}
+        raise HTTPException(404, "No users db found")
