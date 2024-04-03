@@ -41,6 +41,8 @@ The project consists of the following modules and routes:
   - `GET /school/students`: Retrieve all students.
   - `GET /school/students/{id}`: Retrieve a specific student by ID.
   - `POST /school/students`: Add a new student.
+  - `PUT /school/students/{id}`: Update student.
+  - `DELETE /school/students/{id}`: Delete student.
   - `GET /school/class/{name}`: Retrieve students belonging to a specific class.
 
 Each endpoint performs the necessary authentication and authorization checks before processing requests.
