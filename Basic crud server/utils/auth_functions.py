@@ -5,7 +5,7 @@ import bcrypt
 from dotenv import load_dotenv
 import os
 from base64 import b64decode as decode
-
+from fastapi import Request
 load_dotenv()
 secret_key = os.getenv("secret")
 # hash the password with bcrypt
@@ -41,7 +41,7 @@ def verify_jwt(user_jwt):
         print("bad token")
         return False
 # check if a user is logged in
-def check_token(request):
+def check_token(request: Request):
         auth_header = request.headers.get('authorization')
         if auth_header and auth_header.startswith("Bearer "):
             token = auth_header.split(" ")[1]
@@ -52,7 +52,7 @@ def check_token(request):
                 raise e
         return
 # check if logged user is an admin
-def check_token_if_admin(request):
+def check_token_if_admin(request: Request):
         auth_header = request.headers.get('authorization')
         if auth_header and auth_header.startswith("Bearer "):
             token = auth_header.split(" ")[1]

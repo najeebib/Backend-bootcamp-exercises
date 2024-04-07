@@ -1,11 +1,13 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 import utils.auth_functions as auth_fns
 import utils.db_functions as db_fns
 from models.auth_model import Auth_Model
+from modules.logger import Logger
+
 router = APIRouter()
 
 @router.post('/auth/sign_up')
-async def sign_up(body:Auth_Model):
+async def sign_up(body:Auth_Model, ):
     # hash the user password and add them to db
     updated_db = auth_fns.prepare_new_user_data(body.password, body.username, body.is_admin)
     # save db to file
