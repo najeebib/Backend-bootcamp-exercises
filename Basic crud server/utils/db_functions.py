@@ -69,3 +69,8 @@ def delete_from_db(name: str, path='./data/students.json'):
         del students[name]
         save_to_db(students, path)
 
+
+def delete_all_students(path='./data/students.json'):
+    students = load_db(path)
+    for student_name, _ in students.items():
+        delete_from_db(student_name)
