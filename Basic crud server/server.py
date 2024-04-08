@@ -1,14 +1,17 @@
-from fastapi import FastAPI, Request, Depends
-from routes import students_route, auth_route
+from fastapi import FastAPI, Request
+from routes import students_route, auth_route, chat_route, image_route
 import logging
 from modules.logger import Logger
 
 
 logging.basicConfig(level=logging.INFO, filename="log files/server.log", filemode="w")
-app  = FastAPI(dependencies=[Depends(Logger.log_request)])
+app  = FastAPI()
 
 app.include_router(students_route.router)
 app.include_router(auth_route.router)
+app.include_router(chat_route.router)
+app.include_router(image_route.router)
+
 
 
 @app.middleware("http")

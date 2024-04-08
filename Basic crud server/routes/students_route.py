@@ -8,7 +8,7 @@ router = APIRouter()
 
 
 @router.get('/school/students')
-def get_students(is_logged = Depends(auth_fns.check_token)):
+def get_students( is_logged = Depends(auth_fns.check_token), log = Depends(Logger.log_request)):
     # check if user logged in
     if is_logged:
         # get all student from the db
@@ -17,7 +17,7 @@ def get_students(is_logged = Depends(auth_fns.check_token)):
         raise HTTPException(400, detail="no token")
 
 @router.get('/school/students/{id}')
-def get_student(id: int, is_logged = Depends(auth_fns.check_token)):
+def get_student( id: int, is_logged = Depends(auth_fns.check_token ), log = Depends(Logger.log_request)):
     # check if user logged in
     if is_logged:
         student_info = db_fns.find_student_by_id(id)
@@ -28,7 +28,7 @@ def get_student(id: int, is_logged = Depends(auth_fns.check_token)):
     else:
         raise HTTPException(400, detail="no token")
 @router.post('/school/students')
-def add_student(student: student_model, is_admin = Depends(auth_fns.check_token_if_admin)):
+def add_student( student: student_model, is_admin = Depends(auth_fns.check_token_if_admin), log = Depends(Logger.log_request)):
     # check if admin logged in
     if is_admin:
         # check if a student with this id allready exists in the db
@@ -43,7 +43,7 @@ def add_student(student: student_model, is_admin = Depends(auth_fns.check_token_
         raise HTTPException(400, detail="no token")
 
 @router.put('/school/students/{id}')
-def edit_student(id:int, student: student_model, is_admin = Depends(auth_fns.check_token_if_admin)):
+def edit_student( id:int, student: student_model, is_admin = Depends(auth_fns.check_token_if_admin), log = Depends(Logger.log_request)):
     # check if admin logged in
     if is_admin:
         # check if a student with this id allready exists in the db
@@ -56,7 +56,7 @@ def edit_student(id:int, student: student_model, is_admin = Depends(auth_fns.che
     else:
         raise HTTPException(400, detail="no token")
 @router.delete('/school/students/{id}')
-def delete_student(id: int, is_admin = Depends(auth_fns.check_token_if_admin)):
+def delete_student( id: int, is_admin = Depends(auth_fns.check_token_if_admin), log = Depends(Logger.log_request)):
     # check if admin logged in
     if is_admin:
         # check if a student with this id allready exists in the db
@@ -69,14 +69,14 @@ def delete_student(id: int, is_admin = Depends(auth_fns.check_token_if_admin)):
     else:
         raise HTTPException(400, detail="no token")
 @router.delete('/school/students')
-def delete_all_students( is_admin = Depends(auth_fns.check_token_if_admin)):
+def delete_all_students( is_admin = Depends(auth_fns.check_token_if_admin), log = Depends(Logger.log_request)):
     # check if admin logged in
     if is_admin:
         db_fns.delete_all_students()
     else:
         raise HTTPException(400, detail="no token")
 @router.get("/school/class/{name}")
-def get_class(name: str, is_admin = Depends(auth_fns.check_token_if_admin)):
+def get_class( name: str, is_admin = Depends(auth_fns.check_token_if_admin), log = Depends(Logger.log_request)):
     # check if admin logged in
     if is_admin:
         students = db_fns.load_db('./data/students.json')
