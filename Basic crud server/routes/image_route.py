@@ -1,9 +1,10 @@
-from fastapi import FastAPI, Request, Response, APIRouter
+from fastapi import FastAPI, Request, Response, APIRouter, Depends
 from starlette.responses import StreamingResponse
 import base64
 from PIL import Image
 import io
 import asyncio
+from modules.logger import Logger
 
 router = APIRouter()
 # this function will send the base64 encoded image to the client, on the client side we need to merge all the chunks and decode it to get the final image
@@ -26,7 +27,7 @@ async def generate_encoded_image(request):
 
 
 @router.get("/image")
-async def image(request: Request, response: Response):
+async def image(request: Request, response: Response, log = Depends(Logger.log_request)):
     response.headers["Content-Type"] = "text/event-stream"
     response.headers["Cache-Control"] = "no-cache"
     response.headers["Connection"] = "keep-alive"
