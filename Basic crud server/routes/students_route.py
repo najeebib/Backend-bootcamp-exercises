@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Depends, Request
+from fastapi import APIRouter, HTTPException, Depends
 import utils.db_functions as db_fns
 from models.student_model import student_model
 from modules.student import Student

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Depends, Request
+from fastapi import APIRouter, HTTPException, Depends
 import utils.auth_functions as auth_fns
 import utils.db_functions as db_fns
 from models.auth_model import Auth_Model

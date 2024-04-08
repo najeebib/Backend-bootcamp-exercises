@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Depends
+from fastapi import FastAPI, Request
 from routes import students_route, auth_route, chat_route, image_route
 import logging
 from modules.logger import Logger

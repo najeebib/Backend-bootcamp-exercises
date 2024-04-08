@@ -1,4 +1,4 @@
-from fastapi import APIRouter, WebSocket,WebSocketDisconnect, Depends, Request
+from fastapi import APIRouter, WebSocket,WebSocketDisconnect, Depends
 from modules.profanity_filter import ProfanityFilter
 from models.message import Message
 from modules.logger import Logger

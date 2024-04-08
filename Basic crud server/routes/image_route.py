@@ -1,13 +1,12 @@
-from fastapi import FastAPI, Request, Response, APIRouter, Depends
+from fastapi import Request, Response, APIRouter, Depends
 from starlette.responses import StreamingResponse
 import base64
-from PIL import Image
-import io
 import asyncio
 from modules.logger import Logger
 
 router = APIRouter()
 # this function will send the base64 encoded image to the client, on the client side we need to merge all the chunks and decode it to get the final image
+# i got this idea from this https://stackoverflow.com/questions/33529685/using-sse-to-send-image-data
 async def generate_encoded_image(request):
     with open("./images/students_stock_image.jpg", "rb") as f:
         image_data = f.read()
