@@ -27,11 +27,7 @@ def test_add_class():
     school_class = SchoolClass("math", 1, "saleem", ["agebra"])
     fns.add_class(school_class, {})
     assert fns.check_class_in_db({"math":{"id": 1,"name": "math", "teacher": "Salem", "topics": ["agebra"]}}, "math") == True 
-
-def test_add_class2():
-    school_class = SchoolClass("math", 1, "saleem", ["agebra"])
-    fns.add_class(school_class, {})
     assert fns.find_class_by_id({"math":{"id": 1,"name": "math", "teacher": "Salem", "topics": ["agebra"]}}, 1) == {"id": 1,"name": "math", "teacher": "Salem", "topics": ["agebra"]}
-
+    
 def test_find_by_id():
     assert fns.find_class_by_id({}, 1) == None

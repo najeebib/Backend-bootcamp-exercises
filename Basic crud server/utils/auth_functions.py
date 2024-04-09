@@ -62,14 +62,18 @@ def check_token_if_admin(request: Request):
                 raise e
         return
 
-def check_student_in_db(username: str, users_db: dict):
-    if type(username) != str or type(users_db) != dict:
-        raise TypeError
-    return username in users_db
-
+def check_user_in_db(username: str, users_db: dict):
+    if len(users_db) != 0:
+        if type(username) != str or type(users_db) != dict:
+            raise TypeError
+        return username in users_db
+    return False
 def find_user_in_db(username: str, users_db: dict):
-    try:
-        if check_student_in_db:
-            return users_db[username]
-    except TypeError:
-        print("Wrong input types")
+    if len(users_db) != 0:
+        if type(username) != str or type(users_db) != dict:
+            raise TypeError
+        try:
+            if check_user_in_db:
+                return users_db[username]
+        except TypeError:
+            print("Wrong input types")
