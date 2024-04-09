@@ -7,6 +7,8 @@ def check_student_in_db(student_db: dict, student_name):
     return student_name in student_db
 
 def add_student(student: Student, student_db: dict):
+    if not isinstance(student, type(student)) or type(student_db) != dict:
+        raise TypeError
     if not check_student_in_db(student_db, student.get_name()):
         # make a json object of the student
         student_dict = {"name":student.get_name(), "id": student.get_id(), "age":  student.get_age(), "classes": student.get_classes()}
@@ -14,6 +16,8 @@ def add_student(student: Student, student_db: dict):
         save_to_db(student_db, './data/students.json')
 
 def find_student_by_id(id: int, student_db: dict):
+    if type(id) != int or type(student_db) != dict:
+        raise TypeError
     # go through the students and look for student with id
     for _, student_info in student_db.items():
         if student_info["id"] == id:
