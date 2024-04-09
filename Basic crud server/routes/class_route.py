@@ -3,7 +3,7 @@ from models.class_model import class_model
 import utils.db_functions as db_fns
 import utils.class_functions as class_fns
 import utils.student_functions as student_fns
-from modules.class_ import Class
+from modules.school_class import SchoolClass
 from modules.student import Student
 import utils.auth_functions as auth_fns
 from modules.logger import Logger
@@ -28,7 +28,7 @@ def add_class( class_: class_model, is_admin = Depends(auth_fns.check_token_if_a
             raise HTTPException(status_code=400, detail="Class with this id allready exists")
         
         # make a new class object  then add it to the db
-        new_class = Class(class_.name, class_.id, class_.teacher, class_.topics)
+        new_class = SchoolClass(class_.name, class_.id, class_.teacher, class_.topics)
         
         class_fns.add_class(new_class, classes)
         return {"Class  has been added"}
@@ -44,7 +44,7 @@ def add_student_to_class(class_id: int, student_id: int, is_admin = Depends(auth
         studen_info = student_fns.find_student_by_id(student_id, students_db)
         class_info = student_fns.find_student_by_id(class_id, classes_db)
 
-        class_ = Class(class_info["name"], class_info["id"], class_info["teacher"], class_info["topics"])
+        class_ = SchoolClass(class_info["name"], class_info["id"], class_info["teacher"], class_info["topics"])
         student = Student(studen_info["name"], studen_info["id"], studen_info["age"], studen_info["classes"])
 
         class_fns.add_student_to_class(class_, classes_db, student, students_db)
