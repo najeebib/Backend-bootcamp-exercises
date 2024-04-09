@@ -23,7 +23,6 @@ def prepare_new_user_data(password,username, is_admin):
         "username":username,
         "password": hashed_password,
         "is_admin": is_admin
-
     }
     return current_db
 # generate a new jwt
@@ -63,3 +62,14 @@ def check_token_if_admin(request: Request):
                 raise e
         return
 
+def check_student_in_db(username: str, users_db: dict):
+    if type(username) != str or type(users_db) != dict:
+        raise TypeError
+    return username in users_db
+
+def find_user_in_db(username: str, users_db: dict):
+    try:
+        if check_student_in_db:
+            return users_db[username]
+    except TypeError:
+        print("Wrong input types")

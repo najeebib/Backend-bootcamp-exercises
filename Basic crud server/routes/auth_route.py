@@ -11,7 +11,7 @@ async def sign_up(body:Auth_Model, log = Depends(Logger.log_request)):
     # hash the user password and add them to db
     updated_db = auth_fns.prepare_new_user_data(body.password, body.username, body.is_admin)
     # save db to file
-    db_fns.save_to_db(updated_db)
+    db_fns.save_to_db(updated_db, './data/users.json')
     if body.is_admin:
         auth_token = auth_fns.generate_jwt({"user role": "admin"})
     else:
@@ -21,7 +21,8 @@ async def sign_up(body:Auth_Model, log = Depends(Logger.log_request)):
 @router.post('/auth/sign_in')
 async def sign_in(body:Auth_Model, log = Depends(Logger.log_request)):
     try:
-        stored_user = db_fns.find_user_in_db(body.username)
+        users_db = db_fns.load_db('./data/users.json')
+        stored_user = auth_fns.find_user_in_db(body.username, users_db)
         if stored_user:
             stored_pass = stored_user["password"]
             is_admin = stored_user["is_admin"]
