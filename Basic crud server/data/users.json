@@ -3,5 +3,10 @@
     "username": "najeeb",
     "password": "$2b$12$EcJ3pckV7BLyHEQnyMbxWeULbm6OEXoxV.QpUYUeRopmSqX9BuSi2",
     "is_admin": true
+  },
+  "admin": {
+    "username": "admin",
+    "password": "$2b$12$XQm3NQrbWGytSfjVLJlgiOq3FNWFGaTkg0AsbMb2JqIEax1o3UQ4G",
+    "is_admin": true
   }
 }

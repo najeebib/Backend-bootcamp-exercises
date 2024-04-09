@@ -1,0 +1,10 @@
+{
+  "1": {
+    "name": "math",
+    "id": 1,
+    "teacher": "saleem",
+    "topics": [
+      "agebra"
+    ]
+  }
+}
