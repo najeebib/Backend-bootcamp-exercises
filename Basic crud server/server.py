@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request
-from routes import students_route, auth_route, chat_route, image_route
+from routes import students_route, auth_route, chat_route, image_route, class_route
 import logging
 from modules.logger import Logger
 
@@ -11,6 +11,7 @@ app.include_router(students_route.router)
 app.include_router(auth_route.router)
 app.include_router(chat_route.router)
 app.include_router(image_route.router)
+app.include_router(class_route.router)
 
 
 

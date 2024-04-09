@@ -35,7 +35,7 @@ def add_student( student: student_model, is_admin = Depends(auth_fns.check_token
     # check if admin logged in
     if is_admin:
         # check if a student with this id allready exists in the db
-        if student_fns.find_student_by_id(id, students):
+        if student_fns.find_student_by_id(student.id, students):
                 raise HTTPException(status_code=400, detail="Student with this id allready exists")
         
         # make a new student object  then add it to the db
