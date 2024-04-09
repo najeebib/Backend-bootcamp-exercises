@@ -1,8 +1,8 @@
-from modules.class_ import Class
+from modules.school_class import SchoolClass
 """ test the student class """
 class TestStudent:
     def setup_method(self):
-        self.class_ = Class("math",1, "salem", ["algebra", "statistics"])
+        self.class_ = SchoolClass("math",1, "salem", ["algebra", "statistics"])
     # test if the get_name methode returns a string
     def test_name_type(self):
         assert type(self.class_.get_name()) == str

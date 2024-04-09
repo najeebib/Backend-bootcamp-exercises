@@ -1,4 +1,4 @@
-class Class:
+class SchoolClass:
     def __init__(self, name: str, id: int, teacher: str, topics: list):
         self._name = name
         self._id = id
