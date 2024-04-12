@@ -52,3 +52,17 @@ def add_student_to_class(class_id: int, student_id: int, is_admin = Depends(auth
     else:
         raise HTTPException(400, detail="no token")
 
+@router.get("/class/classes/{name}")
+def get_class( name: str, is_admin = Depends(auth_fns.check_token_if_admin), log = Depends(Logger.log_request)):
+    # check if admin logged in
+    if is_admin:
+        students = db_fns.load_db('./data/students.json')
+        students_in_class = []
+        # for each student check if they have the class in their classes list
+        for _, student_info in students.items():
+            if name in student_info["classes"]:
+                # add the student to list of students in this class
+                students_in_class.append(student_info)
+        return students_in_class
+    else:
+        raise HTTPException(400, detail="no token")
