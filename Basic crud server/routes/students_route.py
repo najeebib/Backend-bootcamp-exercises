@@ -15,7 +15,7 @@ def get_students( is_logged = Depends(auth_fns.check_token), log = Depends(Logge
         # get all student from the db
         return db_fns.load_db('./data/students.json')
     else:
-        raise HTTPException(400, detail="no token")
+        raise HTTPException(401, detail="Only logged users can do this")
 
 @router.get('/school/students/{id}')
 def get_student( id: int, is_logged = Depends(auth_fns.check_token ), log = Depends(Logger.log_request)):
@@ -28,7 +28,7 @@ def get_student( id: int, is_logged = Depends(auth_fns.check_token ), log = Depe
         else:
             raise HTTPException(status_code=404, detail="No student with this id exists")        
     else:
-        raise HTTPException(400, detail="no token")
+        raise HTTPException(401, detail="Only logged users can do this")
 @router.post('/school/students')
 def add_student( student: student_model, is_admin = Depends(auth_fns.check_token_if_admin), log = Depends(Logger.log_request)):
     students = db_fns.load_db('./data/students.json')
@@ -36,7 +36,7 @@ def add_student( student: student_model, is_admin = Depends(auth_fns.check_token
     if is_admin:
         # check if a student with this id allready exists in the db
         if student_fns.find_student_by_id(student.id, students):
-                raise HTTPException(status_code=400, detail="Student with this id allready exists")
+                raise HTTPException(status_code=403, detail="Student with this id allready exists")
         
         # make a new student object  then add it to the db
         new_student = Student(student.name, student.id, student.age, student.classes)
@@ -44,7 +44,7 @@ def add_student( student: student_model, is_admin = Depends(auth_fns.check_token
         student_fns.add_student(new_student, students)
         return {"Stduent  has been added"}
     else:
-        raise HTTPException(400, detail="no token")
+        raise HTTPException(401, detail="Only admin users can do this")
 
 @router.put('/school/students/{id}')
 def edit_student( id:int, student: student_model, is_admin = Depends(auth_fns.check_token_if_admin), log = Depends(Logger.log_request)):
@@ -59,7 +59,7 @@ def edit_student( id:int, student: student_model, is_admin = Depends(auth_fns.ch
             return {"user was updated"}
         raise HTTPException(status_code=404, detail="No student with this id exists") 
     else:
-        raise HTTPException(400, detail="no token")
+        raise HTTPException(401, detail="Only admin users can do this")
 @router.delete('/school/students/{id}')
 def delete_student( id: int, is_admin = Depends(auth_fns.check_token_if_admin), log = Depends(Logger.log_request)):
     students = db_fns.load_db('./data/students.json')
@@ -73,7 +73,7 @@ def delete_student( id: int, is_admin = Depends(auth_fns.check_token_if_admin), 
             return {"user was deleted"}
         raise HTTPException(status_code=404, detail="No student with this id exists") 
     else:
-        raise HTTPException(400, detail="no token")
+        raise HTTPException(401, detail="Only admin users can do this")
 @router.delete('/school/students')
 def delete_all_students( is_admin = Depends(auth_fns.check_token_if_admin), log = Depends(Logger.log_request)):
     students = db_fns.load_db('./data/students.json')
@@ -81,18 +81,4 @@ def delete_all_students( is_admin = Depends(auth_fns.check_token_if_admin), log 
     if is_admin:
         student_fns.delete_all_students(students)
     else:
-        raise HTTPException(400, detail="no token")
-@router.get("/school/class/{name}")
-def get_class( name: str, is_admin = Depends(auth_fns.check_token_if_admin), log = Depends(Logger.log_request)):
-    # check if admin logged in
-    if is_admin:
-        students = db_fns.load_db('./data/students.json')
-        students_in_class = []
-        # for each student check if they have the class in their classes list
-        for _, student_info in students.items():
-            if name in student_info["classes"]:
-                # add the student to list of students in this class
-                students_in_class.append(student_info)
-        return students_in_class
-    else:
-        raise HTTPException(400, detail="no token")
+        raise HTTPException(401, detail="Only admin users can do this")

@@ -7,6 +7,6 @@
   "admin": {
     "username": "admin",
     "password": "$2b$12$XQm3NQrbWGytSfjVLJlgiOq3FNWFGaTkg0AsbMb2JqIEax1o3UQ4G",
-    "is_admin": true
+    "is_admin": false
   }
 }

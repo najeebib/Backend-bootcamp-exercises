@@ -73,7 +73,7 @@ def find_user_in_db(username: str, users_db: dict):
         if type(username) != str or type(users_db) != dict:
             raise TypeError
         try:
-            if check_user_in_db:
+            if check_user_in_db(username, users_db):
                 return users_db[username]
         except TypeError:
             print("Wrong input types")
