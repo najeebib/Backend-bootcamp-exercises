@@ -1,0 +1,12 @@
+[
+    {"name": "RTX 4090", "cost": 1100, "date": "1/04/2024"},
+    {"name": "RTX 4080 Super", "cost": 800, "date": "14/04/2024"},
+    {"name": "RTX 4080", "cost": 700, "date": "13/04/2024"},
+    {"name": "RTX 4070 Super TI", "cost": 650, "date": "11/04/2024"},
+    {"name": "RTX 4070 TI", "cost": 600, "date": "11/04/2024"},
+    {"name": "RTX 4070 Super", "cost": 550, "date": "21/03/2024"},
+    {"name": "RTX 4070", "cost": 500, "date": "12/04/2024"},
+    {"name": "RTX 4060", "cost": 450, "date": "15/03/2024"},
+    {"name": "RTX 3090", "cost": 680, "date": "8/04/2024"},
+    {"name": "RTX 3080 TI", "cost": 630, "date": "12/02/2024"}
+]
