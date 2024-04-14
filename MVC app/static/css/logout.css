@@ -1,0 +1,15 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #dfdfdf;
+}
+.logout-box{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 900px;
+    height: 580px;
+    padding: 30px;
+}

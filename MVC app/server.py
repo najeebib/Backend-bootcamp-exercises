@@ -32,3 +32,7 @@ async def log_req(request:Request, call_next):
 @app.get("/")
 def root():
     return "hi from fast api"
+
+@app.get("/log_out")
+def logout(request: Request):
+    return templates.TemplateResponse("logout.html", {"request": request})
