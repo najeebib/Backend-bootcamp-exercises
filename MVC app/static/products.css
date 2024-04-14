@@ -5,9 +5,18 @@ body, html {
 
 .container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100%;
+}
+
+.logout-container {
+    margin-top: 20px; /* Adjust as needed */
+}
+
+.logout-btn {
+    font-size: 24px;
 }
 
 .product-table {

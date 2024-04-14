@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login</title>
+        <title>Products</title>
         <link rel="stylesheet" href="/static/products.css">
     </head>
     <body>
@@ -11,21 +11,26 @@
             <table class="product-table">
                 <thead>
                     <tr>
+                        <th>Date</th>
                         <th>Product Name</th>
                         <th>Price</th>
-                        <th>Quantity</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for product in products %}
                     <tr>
-                        <td>{{ product.date}}</td>
-                        <td>{{ product.name}}</td>
-                        <td>{{ product.cost}}</td>
+                        <td>{{ product.date }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.cost }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+            <div class="logout-container">
+                <div class="logout">
+                    <button type="button" class="logout-btn" id="logout" onclick="logoutUser()">Log out</button>
+                </div>
+            </div>
         </div>
-    </body>
+        </body>
 </html>

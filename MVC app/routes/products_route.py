@@ -7,7 +7,6 @@ templates = Jinja2Templates(directory="templates")
 
 router = APIRouter()
 
-
 @router.get('/products')
 async def sign_in(request: Request):
     products = db_fns.load_db("./data/products.json")
