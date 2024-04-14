@@ -16,6 +16,7 @@ function submitForm() {
     })
     .then(response => {
         if (response.ok) {
+            window.location.replace("http://localhost:8000/products");
             console.log('Login successful');
         } else {
             console.error('Login failed');

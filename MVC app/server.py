@@ -1,5 +1,7 @@
 from fastapi import FastAPI, Request
 from routes import auth_route
+from routes import products_route
+
 import logging
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -8,6 +10,9 @@ templates = Jinja2Templates(directory="templates")
 app = FastAPI()
 
 app.include_router(auth_route.router)
+app.include_router(products_route.router)
+
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get('/sign_in')
