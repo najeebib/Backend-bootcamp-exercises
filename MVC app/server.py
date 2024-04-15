@@ -15,9 +15,6 @@ app.include_router(products_route.router)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-@app.get('/sign_in')
-def login(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
 
 @app.middleware("http")
 async def log_req(request:Request, call_next):
