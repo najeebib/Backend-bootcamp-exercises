@@ -1,2 +1,14 @@
 {
+  "name": {
+    "email": "name",
+    "password": "$2b$12$JIA404U2zfFajSissgeF2OQolZv7aBzrHixqnWpoHzKNZFkyVl7aa"
+  },
+  "name 2 ": {
+    "email": "name 2 ",
+    "password": "$2b$12$1hjh.KnsfHhupN/QvrXq/ukrJqCVtJY0el7NIF1x8dWucbwierj56"
+  },
+  "aa": {
+    "email": "aa",
+    "password": "$2b$12$pXme9VAMMkw6KHbkeLWSv.gr1QdU8mc./inHU8ZcMPKQaH3avlSvC"
+  }
 }

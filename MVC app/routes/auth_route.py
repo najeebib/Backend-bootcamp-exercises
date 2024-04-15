@@ -1,11 +1,16 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Request
 from models.auth_model import Auth_Model
 import utils.db_functions as db_fns
 import utils.auth_functions as auth_fns
+from fastapi.templating import Jinja2Templates
 
+templates = Jinja2Templates(directory="templates")
 
 router = APIRouter()
 
+@router.get('/sign_in')
+def login(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
 
 @router.post('/sign_in')
 async def sign_in(body:Auth_Model):
@@ -31,6 +36,6 @@ async def sign_in(body:Auth_Model):
         print(e)
         raise HTTPException(404, "No users db found")
 
-@router.options('/sign_in')  # Add route to handle OPTIONS requests
+@router.options('/sign_in')
 async def options_sign_in():
     return {"msg": "options"}
