@@ -1,8 +1,6 @@
 from fastapi import FastAPI, Request
 from routes import auth_route
 from routes import products_route
-
-import logging
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
@@ -12,16 +10,14 @@ app = FastAPI()
 app.include_router(auth_route.router)
 app.include_router(products_route.router)
 
-
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
 
 @app.middleware("http")
 async def log_req(request:Request, call_next):
     print(f'got req. to: {request.url}, method: {request.method}')
     response = await call_next(request)
     response.headers["Access-Control-Allow-Origin"] = "*"
-    response.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
     response.headers["Access-Control-Allow-Headers"] = "*"
 
     return response
