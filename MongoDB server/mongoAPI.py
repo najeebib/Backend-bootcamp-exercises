@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 class MongoAPI:
     def __init__(self, data) -> None:
-        self.client = MongoClient("mongodb://localhost:27017/")
+        self.client = MongoClient("mongodb://mymongo_1:27017/")
 
         database = data['database']
         collection = data['collection']
