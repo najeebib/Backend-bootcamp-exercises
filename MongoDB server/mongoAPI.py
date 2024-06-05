@@ -15,9 +15,10 @@ class MongoAPI:
         return output
     
     def read_one(self, id: str):
-        documents = self.collection.find({'id': id})
-        output = [{item: data[item] for item in data if item != '_id'} for data in documents]
-        return output
+        document = self.collection.find_one({'id': id})
+        if document and '_id' in document:
+            document['_id'] = str(document['_id'])
+        return document
     def write(self, data):
         new_document = data
         response = self.collection.insert_one(new_document)
@@ -35,7 +36,8 @@ class MongoAPI:
     def delete(self, id):
         filt = {"id":id}
         response = self.collection.delete_one(filt)
-        output = {'Status': 'Successfully Deleted' if response.deleted_count > 0 else "Document not found."}
+        output = {'Status': 'Successfully Deleted',
+                  'Document_ID': id}
         return output
     
 
